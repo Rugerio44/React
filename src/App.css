@@ -29,7 +29,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-spin infinite 5s linear;
   }
 }
 
@@ -39,4 +39,31 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.caja {
+    display: inline-flex;
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    transition: all 300ms ease-in-out;
+    border: 2px solid black;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.caja:hover {
+  box-shadow: -4px 10px 14px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+.caja__texto-caja
+{
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  align-content: center;
 }
