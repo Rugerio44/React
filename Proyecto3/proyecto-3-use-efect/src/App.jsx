@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { PruebaComponente } from './Componentes/PruebaComponente'
+import { AjaxComponentes } from './Componentes/AjaxComponentes'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +20,8 @@ function App() {
       </div>
       <hr />
       <PruebaComponente />
+
+      <AjaxComponentes/>
 
     </>
   )
