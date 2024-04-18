@@ -45,4 +45,12 @@
   color: white;
   padding: 0.5rem;
   border-radius: 5rem;
+  transition: all 300ms ease-in-out;
+}
+.label-rojo{
+  background-color: rgb(65, 65, 243);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  transform: scale(1.05);
 }
