@@ -16,6 +16,7 @@ function App() {
     edad: 26,
     alegias:"Ninguna"
   }
+  
 
   return (
     <div className="App">
