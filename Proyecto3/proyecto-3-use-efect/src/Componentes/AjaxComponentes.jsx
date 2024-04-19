@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react'
 export const AjaxComponentes = () => {
 
     const [usuarios, setusuarios] = useState([]);
+    const [cargando, setcargando] = useState(true);
+    let timeout = 3000;
 
     //Funcion Generico para rellenar el array
-    
     const generarUsuarios = () => {
        setusuarios([
         {
@@ -37,27 +38,66 @@ export const AjaxComponentes = () => {
         }
        ]);
     };
+    /*Primera farma de llamar un ajax*/ 
+    const getusuariosAjaxpromise = () =>{
+        fetch("https://reqres.in/api/users?page=1")
+            .then(respuesta => respuesta.json())
+            .then(
+                resultado_final => {
+                    setusuarios(resultado_final.data);
+                    console.log(usuarios);
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+
+    }
+    /*Segunda farma de llamar un ajax*/
+    const getUsuariosAjaxAW = () => {
+        setTimeout(async() => {
+            const peticion = await fetch("https://reqres.in/api/users?page=1");
+            const {data} = await peticion.json();
+        
+            setusuarios(data);
+            setcargando(false);
+        }, timeout);
+       
+    }
+
+
+    
+
+
     //Generar usuarios
     useEffect(()=> {
-        generarUsuarios();
+       // generarUsuarios();
+       //getusuariosAjaxpromise();
+       getUsuariosAjaxAW();
     },[]);
-    
-  return (
-    <div>
-        <h2>Listado de Usuarios Via Ajax</h2>
 
-        <ol className='usuarios'>
-            {
-                usuarios.map(usuario => {
-                    console.log(usuario);
-                    return <li key={usuario.id}>{usuario.nombre} {usuario.apellido}</li>
-                })
-            }
-        </ol>
+    if(cargando === true){
+        return (
+            <div className='cargando'>
+                <h4>Cargando...</h4>
+            </div>
+            
+        );
+    }else{
+        return (
+            <div>
+                <h2>Listado de Usuarios Via Ajax</h2>
 
+                <ol className='usuarios'>
+                    {
+                        usuarios.map(usuario => {
+                            console.log(usuario);
+                            return <li key={usuario.id}> {usuario.first_name}{usuario.last_name} </li>
+                        })
+                    }
+                </ol>
 
-
-
-    </div>
-  )
+            </div>
+        )
+    }
 }
