@@ -1,0 +1,92 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+.logo {
+  height: 4em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #11181aaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.label{
+  background-color: green;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  transition: all 300ms ease-in-out;
+}
+.label-rojo{
+  background-color: rgb(65, 65, 243);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5rem;
+  transform: scale(1.05);
+}
+
+form input[type="text"],
+form select,
+form textarea{
+  display: block;
+  margin: 10px;
+  padding: 5px;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+form select{
+  min-width: 264px;
+  max-width: 264px;
+}
+
+form input[type=submit],
+form button{
+  display:block;
+  float: left;
+  margin: 10px ;
+  padding: 10px;
+  cursor: pointer;
+  background-color: green;
+  color: white;
+  border: 0.5px solid rgb(83, 83, 83);
+  transition: all 400ms ease-in-out;
+}
+
+form input[type=submit]:hover,
+form button:hover{
+  background-color: white;
+  color: black;
+  
+}
