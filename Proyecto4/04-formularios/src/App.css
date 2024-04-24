@@ -90,3 +90,22 @@ form button:hover{
   color: black;
   
 }
+
+.nombreusuario{
+  background-color: #888;
+  margin-top: 50px;
+  border-radius: 5rem;
+  padding: 0.5rem;
+  width: 80%;
+  transition: all 300ms ease-in-out;
+  text-align: center;
+}
+.nombreusuario__nombre,
+.nombreusuario__apellido,
+.nombreusuario__genero,
+.nombreusuario__bio
+{
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}

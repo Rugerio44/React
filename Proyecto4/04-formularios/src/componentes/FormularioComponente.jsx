@@ -15,12 +15,25 @@ export const FormularioComponente = () => {
       nombre: datos.nombre.value,
       apellido: datos.apellido.value,
       genero: datos.genero.value,
-      bio: datos.bio.value
+      bio: datos.bio.value,
+      enviar: datos.enviar.value
     }
-
     console.log(usuario);
-  
     setusuario(usuario);
+  };
+
+  const cambiarDatos = e => {
+    let name_del_input = e.target.name;
+    let usuario__para_modificar = usuario;
+
+    //usuario__para_modificar[name_del_input] = e.target.value;
+
+    setusuario(estado_previo => {
+      return {
+       ...estado_previo,
+        [name_del_input]: e.target.value
+      }
+    });
 
   };
 
@@ -38,28 +51,33 @@ export const FormularioComponente = () => {
           <input type="text"
                  placeholder='nombre'
                  name='nombre'
+                 required
+                 onChange={cambiarDatos}
           />
           <input type="text"
                  placeholder='apellido'
                  name='apellido'
+                 required
+                 onChange={cambiarDatos}
           />
-          <select name='genero'>
+          <select name='genero' onChange={cambiarDatos}>
             <option value="Hombre">Hombre</option>
             <option value="Mujer">Mujer</option> 
           </select>
           <textarea placeholder='Biografia'
                     name='bio'
+                    onChange={cambiarDatos}
           ></textarea>
-          <input type="submit" value="Enviar" />
+          <input type="submit" value="Enviar" name='enviar'/>
         </form>
         <br />
-        { usuario.bio && usuario.bio.length >= 1 &&
+        { usuario.enviar &&
           (
             <div className="nombreusuario">
-            Nombre:{usuario.nombre} <br />
-            Apellido:{usuario.apellido} <br />
-            Género:{usuario.genero} <br />
-            Biografía:{usuario.bio}
+            <p className='nombreusuario__nombre'>Nombre:  {usuario.nombre}</p> 
+            <p className='nombreusuario__apellido'>Apellido:  {usuario.apellido}</p> 
+            <p className='nombreusuario__genero'>Género:  {usuario.genero}</p>
+            <p className='nombreusuario__bio'>Biografía:  {usuario.bio}</p>
             </div>
           )
         }
