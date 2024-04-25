@@ -7,8 +7,9 @@ import { Buscador } from './Componentes/Buscador'
 import { Add } from './Componentes/Add'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+    const [listadoState,setlistadoState] = useState([]);
+  
   return (
     <>
        
@@ -34,15 +35,17 @@ function App() {
 
         
         <section id="content" className="content">
+
           {/*Aqui va el Listado de Peliculas*/ }
-          <Listado/>
+          <Listado listadoState={listadoState} setlistadoState={setlistadoState} />
+
         </section>
 
         
         <aside className="lateral">
             <Buscador/>
 
-            <Add/>
+            <Add setlistadoState={setlistadoState}/>
         </aside>
 
         
