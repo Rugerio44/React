@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import { GuardarEnStorage } from '../helpers/GuardarEnStorage';
 
-export const Add = () => {
+export const Add = ({setlistadoState}) => {
 
-   const titulo = "Añadir Pelicula";
+   const tituloComponente = "Añadir Pelicula";
 
-   const [pelistate, setpelistate] = useState({
+   const [formState, setFormState] = useState({
      titulo: "",
      descripcion: ""
-   });
+   }); 
+
+   const [pelistate, setpelistate] = useState(null);
+
+   const {titulo, descripcion} = formState;
 
    const conseguirdatosform = e => {
         e.preventDefault();
@@ -23,38 +28,51 @@ export const Add = () => {
             titulo: titulo,
             descripcion: descripcion
         }
-
+        //Guardar estado 
         setpelistate(pelicula);
-
-        console.log(pelistate);
         
 
+         //Añadirlo al listado
+         setlistadoState(listado => {
+          return [...listado, pelicula];
+         });
+
+        //Guardar en el almacenamiento local
+        GuardarEnStorage("pelicula",pelicula);
+    
+        
    };
 
   return (
      <div className="add">
-                <h3 className="title">{titulo}</h3>
+                <h3 className="title">{tituloComponente}</h3>
 
-                {pelistate.titulo} <br />
-                {pelistate.descripcion}
+                <strong>
+                  {(pelistate && pelistate.titulo && pelistate.descripcion) && "Has creado la película "+ pelistate.titulo}
+                </strong>
 
                 <form onSubmit={conseguirdatosform}>
                     <input type="text" 
-                           id="title" 
+                           id="titulo" 
                            name='titulo'
                            placeholder="Titulo" 
+                           onChange={e => setFormState({...formState, titulo: e.target.value})}
                     />
                     <textarea 
                               id="description"
                               name='descripcion'
                               placeholder="Descripción"
-                             
+                              onChange={e => setFormState({...formState, descripcion: e.target.value})}
                     ></textarea>
-                    <input type="submit"
-                           id="save" 
-                           value="Guardar" 
-                    />
+                    {(titulo && descripcion) && 
+                      <input type="submit"
+                        id="save" 
+                        value="Guardar" 
+                      />
+                    }
+                   
                 </form>
      </div>
   )
 }
+
