@@ -93,31 +93,27 @@ body{
 
 /*ESTILOS PARA EL CONTENIDO PRINCIPAL*/
 
-.content {
+.content{
     grid-area: content;
     background: #f6f7f9;
+    
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     flex-grow: 1;
-    align-content: center;
-    flex-wrap: nowrap;
 }
-
 .peli-item {
-    flex-grow: 0;
+    flex-grow: 1;
     background: white;
     border-radius: 10px;
-    box-shadow: 0px 0px 6px #7902b1;
+    box-shadow: 0px 0px 6px #ddd;
     margin: 20px;
-    padding-top: 5px;
-    /* padding-left: 25px; */
-    /* padding-right: 25px; */
-    padding-bottom: 2rem;
-    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
-
 button,
 input[type="submit"],
 input[type="button"]{

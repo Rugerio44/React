@@ -39,6 +39,8 @@ export const Add = ({setlistadoState}) => {
 
         //Guardar en el almacenamiento local
         GuardarEnStorage("pelicula",pelicula);
+
+        
     
         
    };
