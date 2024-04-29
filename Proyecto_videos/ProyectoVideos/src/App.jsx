@@ -8,7 +8,7 @@ import { Add } from './Componentes/Add'
 
 function App() {
 
-    const [listadoState,setlistadoState] = useState([]);
+  const [listadoState,setlistadoState] = useState([]);
   
   return (
     <>
@@ -43,7 +43,7 @@ function App() {
 
         
         <aside className="lateral">
-            <Buscador/>
+            <Buscador listadoState={listadoState} setlistadoState={setlistadoState}/>
 
             <Add setlistadoState={setlistadoState}/>
         </aside>
