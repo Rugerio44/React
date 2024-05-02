@@ -34,7 +34,10 @@ export const Buscador = ({listadoState,setlistadoState}) => {
     
         <div className="search">
                 <h3 className="title">Buscador: {busqueda}</h3>
-                <span className='no-encontrado'></span>
+                {(noEncontrado == true && busqueda.length > 1) && (
+                  <span className='no-encontrado'>No se han encontrado coincidencias</span>
+                )}
+                
                 <form>
                     <input type="text" 
                            id="search_field"
