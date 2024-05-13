@@ -5,6 +5,8 @@ import { Articulos } from '../components/Articulos';
 import { Contacto } from '../components/Contacto';
 import { Error } from '../components/Error';
 import { Persona } from '../components/Persona';
+import { Navigate } from 'react-router-dom';
+
 
 export const RouterPrincipal = () => {
   return (
@@ -51,7 +53,8 @@ export const RouterPrincipal = () => {
                 <Route path='/contacto' element={<Contacto />} />
                 <Route path='/persona/:nombre/:apellido' element={<Persona />} />
                 <Route path='/persona/:nombre/' element={<Persona />} />
-                <Route path='/persona/' element={<Persona />} />
+                <Route path='/persona' element={<Persona />} />
+                <Route path={"/redirigir"} element={<Navigate to="/Persona/gianni/rugerio" />} />
                 <Route path='*' element={<Error/> } />
             </Routes>
           </section>
