@@ -6,6 +6,11 @@ import { Contacto } from '../components/Contacto';
 import { Error } from '../components/Error';
 import { Persona } from '../components/Persona';
 import { Navigate } from 'react-router-dom';
+import { PanelControl } from '../components/PanelControl';
+import { InicioPanel } from '../components/panel/InicioPanel';
+import { Crear } from '../components/panel/Crear';
+import { Gestion } from '../components/panel/Gestion';
+import { Acerca } from '../components/panel/Acerca';
 
 
 export const RouterPrincipal = () => {
@@ -39,7 +44,13 @@ export const RouterPrincipal = () => {
             <li><NavLink to='/persona'
                           className={
                             ({isActive}) => isActive ? "activado" : "" } 
-                          >Persona</NavLink></li>              
+                          >Persona</NavLink></li>     
+
+            <li><NavLink to='/panel'
+                          className={
+                            ({isActive}) => isActive ? "activado" : "" } 
+                          >Panel</NavLink></li> 
+
           </ul>
         </nav>
         
@@ -52,9 +63,17 @@ export const RouterPrincipal = () => {
                 <Route path='/articulos' element={<Articulos />} />
                 <Route path='/contacto' element={<Contacto />} />
                 <Route path='/persona/:nombre/:apellido' element={<Persona />} />
-                <Route path='/persona/:nombre/' element={<Persona />} />
+                <Route path='/persona/:nombre' element={<Persona />} />
                 <Route path='/persona' element={<Persona />} />
                 <Route path={"/redirigir"} element={<Navigate to="/Persona/gianni/rugerio" />} />
+                
+                <Route path={'/panel/*'} element={<PanelControl/> }>
+                  <Route index element={<InicioPanel/>} />
+                  <Route path='crear-articulos' element={<Crear/>} />
+                  <Route path='gestion-usuarios' element={<Gestion/>} />
+                  <Route path='acerca-de' element={<Acerca/>} />
+
+                  </Route>
                 <Route path='*' element={<Error/> } />
             </Routes>
           </section>
