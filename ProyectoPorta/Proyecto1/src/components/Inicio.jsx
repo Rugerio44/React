@@ -3,26 +3,26 @@ import { Link } from 'react-router-dom'
 
 export const Inicio = () => {
   return (
-    <div>
+    <div className='home'>
 
       <h1>
-        Hola, soy gianni y soy Desarrollador Web en México,
+        Hola, soy gianni y soy <strong>Desarrollador Web</strong> en México,
         soy un desarrollador web,
         me gusta trabajar en proyectos de desarrollo web, diseño web,
         desarrollo de aplicaciones web, desarrollo de sitios web,
         desarrollo de aplicaciones móviles, desarrollo de sitios web móviles,
       </h1>
 
-      <h2>
+      <h3>
         Te ayudo a crear tu sitio o aplicación web, tener más 
         visibilidad y relevancia en internet.<Link to="/contacto">Contactame</Link> ahorita
-      </h2>
+      </h3>
 
       <section className="lasts-works">
-        <h2>Algunos de mis proyectos:</h2>
+        <h3 className='heading'>Algunos de mis proyectos:</h3>
         
         <div className="works">
-          
+          <p>hola</p>
         </div>
       </section>
 
