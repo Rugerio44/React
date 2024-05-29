@@ -11,13 +11,15 @@ export const Portafolio = () => {
       {
         trabajo.map(trabajo =>(
         <article key={trabajo.id} className='works__work-item'>
-          <hr />
+          
           <div className="work-item__mask">
             <img src={"/img/"+trabajo.id+".jpg"} className='mask__imagen'/>
           </div>
-          <span>{trabajo.categorias}</span>
-          <h2> <Link to={"/proyecto/"+trabajo.id}> {trabajo.nombre}</Link></h2>
-          <p>Tecnologías: {trabajo.tecnologias}</p>
+          <div className="info">
+            <span className='info__categorias'>{trabajo.categorias}</span>
+            <h2> <Link to={"/proyecto/"+trabajo.id} className='info__nombre'> {trabajo.nombre}</Link></h2>
+            <p className='info__tecnologias'>Tecnologías: {trabajo.tecnologias}</p>
+          </div>
         </article>
       ))
       }
