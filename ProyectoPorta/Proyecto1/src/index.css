@@ -125,10 +125,13 @@ code {
 
 .page .heading,
 .home .heading {
-  font-size: 45px;
-  font-style: italic;
-  /* font-weight: 300; */
-  color: black;
+    font-size: 45px;
+    font-style: italic;
+    /* font-weight: 300; */
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+
 }
 
 .home p {
@@ -180,6 +183,53 @@ input[type="button"]:hover{
   flex-grow: 1;
 }
 
-.mask__imagen{
+.mask__imagen {
   width: 100%;
+  border-radius: 0.7rem 0.7rem 0rem 0rem;
+  transition: all 300ms ease-in-out;
 }
+
+.works__work-item{
+  flex-basis: 30%;
+  flex-grow: 1;
+
+  margin: 30px;
+  border: 0.5rem solid #7339ad;
+  padding: 0rem;
+  border-radius: 1.2rem;
+  transition: all 300ms ease-in-out;
+}
+
+
+.works__work-item:hover{
+  box-shadow: 0px 0px 6px #030303;
+}
+
+.work-item__mask{
+  display: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+.info {
+  margin-top: 0rem;
+  text-align: center;
+  padding-top: 0.5rem;
+  border: 3px solid black;
+  border-radius: 0rem 0rem 0.6rem 0.6rem;
+}
+.info__nombre{
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+  transition: all 300ms ease-in-out;
+}
+.works__work-item:hover .info__nombre{
+  font-size: 1.6rem;
+  color: #7339ad;
+}
+.works__work-item:hover .mask__imagen{
+  transform: scale(1.2);
+}
+
