@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ListadoTrabajos } from './ListadoTrabajos'
 
 export const Inicio = () => {
   return (
@@ -21,9 +22,7 @@ export const Inicio = () => {
       <section className="lasts-works">
         <h3 className='heading'>Algunos de mis proyectos:</h3>
         
-        <div className="works">
-          <p>hola</p>
-        </div>
+        <ListadoTrabajos />
       </section>
 
     </div>
