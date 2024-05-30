@@ -17,10 +17,10 @@ export const Proyecto = () => {
   return (
     <div className='page'>
       <h1 className='heading'>{proyecto.nombre}</h1>
-      <p>{proyecto.tecnologias}</p>
-      <p>{proyecto.descripcion}</p>
+      <p className='page__tecnologias'>{proyecto.tecnologias}</p>
+      <p className='page__descripcion'>{proyecto.descripcion}</p>
       <div >
-        <img className="mask__imagen" src={"/img/"+proyecto.id+".jpg"} alt="" />
+        <img className="page__img" src={"/img/"+proyecto.id+".jpg"} alt="" />
       </div>
       
 
