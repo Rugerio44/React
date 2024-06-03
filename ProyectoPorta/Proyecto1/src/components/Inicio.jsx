@@ -14,15 +14,17 @@ export const Inicio = () => {
         desarrollo de aplicaciones móviles, desarrollo de sitios web móviles,
       </h1>
 
-      <h3>
+      <h3 className='title'>
         Te ayudo a crear tu sitio o aplicación web, tener más 
         visibilidad y relevancia en internet.<Link to="/contacto">Contactame</Link> ahorita
       </h3>
 
       <section className="lasts-works">
         <h3 className='heading'>Algunos de mis proyectos:</h3>
-        
-        <ListadoTrabajos />
+          <hr />
+          
+
+        <ListadoTrabajos limite="2"/>
       </section>
 
     </div>
