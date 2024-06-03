@@ -2,11 +2,12 @@ import React from 'react'
 import { trabajo } from '../data/Trabajo';
 import {Link} from 'react-router-dom'
 
-export const ListadoTrabajos = () => {
+export const ListadoTrabajos = ({limite = 10}) => {
   return (
     <section className="works">
       {
-        trabajo.map(trabajo =>(
+        trabajo.slice(0,limite).map(trabajo =>(
+
         <article key={trabajo.id} className='works__work-item'>
           
           <div className="work-item__mask">
