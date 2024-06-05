@@ -7,6 +7,7 @@ export const Formulario = () => {
     const apellidoValue = useRef();
     const emailValue = useRef();
     const miCaja = useRef();
+    
 
     const mostrar = e => {
         e.preventDefault();
@@ -15,20 +16,25 @@ export const Formulario = () => {
         console.log(nombreValue.current.value);
         console.log(apellidoValue.current.value);
         console.log(emailValue.current.value);
-
+        
         //mi caja
-
-        console.log(miCaja);
+        
+        let {current:caja} = miCaja
+        
+        
+        caja.classList.add("fondoVerde");
+        caja.innerHTML = "<h2>Formulario Enviado<h2/>";
     }
 
   return (
     <div>
-        <h1>Formulario</h1>
+        <h1>Formulario con UseRef</h1>
 
         <form onSubmit={mostrar}>
 
             <div ref={miCaja} className='micaja'>
                 <h2>Pruebas con use ref</h2>
+                
             </div>
 
             <input type="text" placeholder='Nombre' ref={nombreValue} /><br />
@@ -42,3 +48,4 @@ export const Formulario = () => {
     </div>
   )
 }
+ 
