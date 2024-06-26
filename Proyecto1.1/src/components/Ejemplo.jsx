@@ -9,12 +9,13 @@ export const Ejemplo = () => {
     saludosenCola.current = numeroSaludos;
     setTimeout(() => {
       console.log("Saludos en la cola:"+saludosenCola.current);
-    }, 2000);
-  });
+    }, 2000)
+  },[numeroSaludos]);
+  
 
   const enviarsaludo = e =>{
     setnumeroSaludos(numeroSaludos+1);
-    
+  
     e.preventDefault();
     if(numeroSaludos === 10){
       setnumeroSaludos(0);
