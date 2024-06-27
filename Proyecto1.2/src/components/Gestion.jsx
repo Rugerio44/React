@@ -1,15 +1,19 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Empleados } from './Empleados'
 
 export const Gestion = () => {
 
-  const [nombre,setnombre] = useState("");
+  const [nombre,setnombre] = useState("Gianni");
+  const [pagina,setpagina] = useState(1);
   
   const asignargestor = e => {
     setnombre(e.target.value);
   }
 
-  console.log("Vista Gestion Actualizada!!");
+  useEffect(()=>{
+    console.log("Vista Gestion Actualizada!!");
+  },[nombre,pagina]);
+  
 
   return (
     <div>
@@ -19,7 +23,10 @@ export const Gestion = () => {
         </div>
         <h2 className='name__client'>Listado de empleados:</h2>
         <p className="name__texto">Los Usuarios se gestionan por {nombre} de jsonplaceholder...</p>
-        <Empleados/>
+        <button onClick={() => { setpagina(1)}}>Página 1</button> 
+        <button onClick={() => { setpagina(2)}}>Página 2</button>
+        <button onClick={() => { setpagina(3)}}>Página 3</button>
+        <Empleados pagina={pagina}/>
     </div>
   )
 }
