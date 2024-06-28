@@ -10,7 +10,12 @@ function App() {
   return (
     <div className="App">
       <header>
+        
+        {/*Ejerciio con hook UseMemo*/}
         <Tareas />
+
+
+        {/*Ejercicio con metodo memo para componentes*/}
         {/*<Gestion/>*/}
       </header>
 

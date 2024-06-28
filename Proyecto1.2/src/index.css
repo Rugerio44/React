@@ -83,3 +83,24 @@ button:focus-visible {
   text-align: center;
   border: 2px solid black;
 }
+.tarea__titulo{
+  color: aqua;
+}
+.tarea__form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form__descripcion{
+  padding: 1rem;
+  text-align: center;
+  border: 2px solid black;
+}
+.form__enviar{
+  padding: 0.4rem;
+  background-color: #ffffff;
+  transition: all 400ms ease-in-out;
+}
+.form__enviar:hover{
+  background-color: #8909af;
+}
