@@ -34,6 +34,15 @@ import React, { useState } from 'react'
       
           console.log(tareasActualizadas);
         };
+
+        // Función para borrar una tarea
+        const borrartarea = id =>{
+          const tareasActualizadas = tareas.filter((tarea, indice) => indice!== id);
+          setTareas(tareasActualizadas);
+          console.log(tareasActualizadas);   // Mostrar la lista actualizada después de borrar una tarea
+        }
+      
+      
   return (
     <div className='tarea'>
       <h1 className='tarea__titulo'>Mis Tareas</h1>
@@ -53,11 +62,21 @@ import React, { useState } from 'react'
 
         {mensajeError && <h3 className='error'>{mensajeError}</h3>}
 
-        <h3>Lista 
+        <h3 className='tarea__lista'>Lista 
           <ul>
-            {tareas.map(tarea => (
-              <li key={tarea}>{tarea}</li>
-            ))}
+            { 
+              
+              tareas.map((tareas, indice) =>{
+                return (
+                  <li key={indice}>
+                    {tareas}
+                    <button className="lista__listas" onClick={() => borrartarea(indice)}>X</button>
+                  </li>
+                )  
+              })  
+            
+            
+            }
           </ul>
         </h3>
 
