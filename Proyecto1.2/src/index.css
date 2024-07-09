@@ -104,3 +104,16 @@ button:focus-visible {
 .form__enviar:hover{
   background-color: #8909af;
 }
+.lista__listas{
+  background-color: #974cad;
+  padding: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  margin-left: 2.0rem;
+  transition: all 300ms ease-in-out;
+}
+.lista__listas:hover{
+  background-color: #ffffff;
+  
+
+}
