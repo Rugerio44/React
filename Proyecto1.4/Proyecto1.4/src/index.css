@@ -45,6 +45,13 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  
+    border-color: transparent;
+    background-color: rgb(20, 21, 22);
+    padding: 0.4rem;
+    background-color: blue;
+    padding-top: 1.2px;
+    padding-bottom: 3.2px;
 }
 button:hover {
   border-color: #646cff;
