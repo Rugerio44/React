@@ -69,7 +69,14 @@ export const Misvideojuegos = () => {
                     <li key={juego.id}>
                         {juego.titulo}
                         &nbsp;  <button onClick={e => borramelo(juego.id)}>x</button>
-                        <input type="text" onBlur={e => editar(e, juego.id)}></input>
+                        <input type="text" onBlur={e => editar(e, juego.id)}
+                                           onKeyPress={e => {
+                                            if(e.key == "Enter"){
+                                                editar(e, juego.id);
+                                                console.log("Has presionado enter");
+                                            }
+                                            }}
+                        />
                     </li>
                 ))}
             </li>

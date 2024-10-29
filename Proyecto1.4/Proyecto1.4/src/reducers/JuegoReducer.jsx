@@ -8,9 +8,14 @@ export const JuegoReducer = (state = [],action) => {
         case 'ELIMINAR_JUEGO':
             return state.filter(juego => juego.id!==action.payload);
         
-        case 'EDITAR_JUEGO':
+        case "EDITAR_JUEGO":
+            let indice = state.findIndex (juego => juego.id === action.payload.id);
+            state[indice] = action.payload;
             
+            console.log(state);
+
+            return [...state];
         default:
-            return state;
+        return state;
     }
 }
