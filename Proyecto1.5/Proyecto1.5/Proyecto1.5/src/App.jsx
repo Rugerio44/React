@@ -1,14 +1,25 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { PruebaContext } from "./context/PruebaContext";
+import { AppRouter } from "./routing/AppRouter";
+
 
 function App() {
-  
+
+  const pokemon = {
+    id: 25,
+    nombre: "Pikachu",
+    tipo: "Electrico",
+    velocidad: 100,
+    habilidad: "Impactrueno"
+  }
 
   return (
-    <div className="App">  
-      <h1>Aprendiendo el usecontext con Gianni Francesco</h1>
+    <div>  
+
+      <PruebaContext.Provider value={pokemon}>
+          <AppRouter></AppRouter>
+      </PruebaContext.Provider>
+
     </div>
   );
 }
