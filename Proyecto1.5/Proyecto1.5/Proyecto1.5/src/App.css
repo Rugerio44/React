@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /*max-width: 1280px;*/
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -66,4 +66,51 @@
   font-size: 20px;
   font-weight: bold;
   align-content: center;
+}
+
+.header__menu{
+  background-color: #1f2a5c;
+  margin-bottom: 1.5rem;
+  /* border-radius: 4.5rem; */
+  display: flex;
+  justify-content: end;
+}
+
+.header__menu-h1{
+  margin-right: 3.5rem;
+  padding-left: 0.5rem;
+}
+
+.menu__menu-nav {
+  /* padding: 0.5rem; */
+  display: flex;
+  /* border: 6px solid purple; */
+  /* border-radius: 4.5rem; */
+  justify-content: end;
+  width: 99.5rem;
+}
+.menu-nav__inicio {
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: center; */
+  /* text-decoration: none; */
+  padding: 1rem;
+}
+.inicio__li {
+  list-style: none;
+  margin: 1rem;
+  color: white;
+}
+.inicio__li:hover{
+  color: #000002;
+}
+
+.content {
+  min-height: 350px;
+  background-color: black;
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  border-radius: 1.5rem;
+  border: 3px solid rgb(250, 244, 244);
 }
