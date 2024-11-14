@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {Routes,Route,NavLink,BrowserRouter} from 'react-router-dom';
 import { Inicio } from '../components/Inicio';
 import { Articulos } from '../components/Articulos';
 import { Acerca } from '../components/Acerca';
 import { Constacto } from '../components/Constacto';
 import { Login } from '../components/Login';
+import { PruebaContext } from '../context/PruebaContext';
 
 export const AppRouter = () => {
+
+    const {usuario, setusuario} = useContext(PruebaContext)
+
   return (
     <BrowserRouter> 
     {/*Menu Navegación*/}
@@ -26,9 +30,29 @@ export const AppRouter = () => {
                 <li className='inicio__li'>
                     <NavLink to="/contacto" >Contacto</NavLink>
                 </li>
-                <li className='inicio__li'>
-                    <NavLink to="/Login" >Login</NavLink>
-                </li>            
+                
+                    {usuario.username !== null ? (
+                        <>
+                            <li className='inicio__li'>
+                                <NavLink to="/" > {usuario.username}</NavLink>
+                            </li>
+                            <li className='inicio__li'>
+                                <a href="#" onClick={ e => {
+                                     e.preventDefault();
+                                     setusuario({
+                                         username: null,
+                                         nombre: "Jordi",
+                                         apellido: "Rugerio"
+                                     })
+                                }}>Cerrar Sesión</a>
+                            </li>
+                        </>
+                    )
+                    : (
+                        <li className='inicio__li'>
+                            <NavLink to="/Login" > Login</NavLink>
+                        </li>
+                    )}          
             </ul>
         </nav>
     </header>
