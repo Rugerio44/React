@@ -4,12 +4,7 @@ import { PruebaContext } from "./context/PruebaContext";
 import { AppRouter } from "./routing/AppRouter";
 
 function App() {
-  const [usuario, setusuario] = useState({
-    username: "Gianni44",
-    nombre: "Gianni",
-    apellido: "Rugerio",
-    email: "gianni.rugerio@hotmail.com",
-  });
+  const [usuario, setusuario] = useState({});
 
   const pokemon = {
     id: 25,
