@@ -9,7 +9,7 @@ import { PruebaContext } from '../context/PruebaContext';
 
 export const AppRouter = () => {
 
-    const {usuario, setusuario} = useContext(PruebaContext)
+  const {usuario, setusuario} = useContext(PruebaContext)
 
   return (
     <BrowserRouter> 
@@ -31,7 +31,9 @@ export const AppRouter = () => {
                     <NavLink to="/contacto" >Contacto</NavLink>
                 </li>
                 
-                    {usuario.username !== null ? (
+                
+                
+                    {usuario.hasOwnProperty("username") && usuario.username !== null ? (
                         <>
                             <li className='inicio__li'>
                                 <NavLink to="/" > {usuario.username}</NavLink>
@@ -39,13 +41,11 @@ export const AppRouter = () => {
                             <li className='inicio__li'>
                                 <a href="#" onClick={ e => {
                                      e.preventDefault();
-                                     setusuario({
-                                         username: null,
-                                         nombre: "Jordi",
-                                         apellido: "Rugerio"
-                                     })
+                                     setusuario({})
                                 }}>Cerrar Sesión</a>
                             </li>
+                            {console.log(usuario.username)}
+                            
                         </>
                     )
                     : (

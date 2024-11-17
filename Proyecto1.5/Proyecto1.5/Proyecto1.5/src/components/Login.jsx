@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { PruebaContext } from '../context/PruebaContext'
+import {useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+
+  const {usuario,setusuario} = useContext(PruebaContext);
+
+  const navigate = useNavigate();
 
   const guardardatos = (e) => {
     e.preventDefault();
     
-    let usuario = {  
+    let usuario_identificado = {  
       username: e.target.username.value, 
       nombre: e.target.nombre.value,
-      apellido: e.target.apellido,
+      apellido: e.target.apellido.value,
       email: e.target.email.value,
     }
 
-    // Aquí podrías guardar los datos en el contexto o en alguna base de datos
-    console.log(usuario);
-    e.target.reset(); // Limpiar los inputs al enviar el formulario
+    setusuario(usuario_identificado);
+    
+    e.target.reset();
+    navigate('/');
+
+    // Mostrar mensaje de bienvenida al usuario
+    alert(`Bienvenido, ${usuario_identificado.username}`);
   }
 
   return (

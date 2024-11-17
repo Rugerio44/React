@@ -8,9 +8,14 @@ export const Inicio = () => {
   return (
     <div>
       <h1>Inicio</h1>
-
-      <p>El nombre tuyo es <strong>{usuario.nombre} </strong></p>
-      <p>Y tu apellido es <strong>{usuario.apellido} </strong></p>
+      {
+        usuario.nombre && usuario.apellido ? (
+          <p>El nombre tuyo es <strong>{usuario.nombre} </strong> y tu apellido es <strong>{usuario.apellido} </strong></p>
+        ) : (
+          <p>Por favor, Logeate para poder ver el contenido</p>
+        )
+      }
+      
       {/* <p>Este es la página de inicio</p>
       <p>Número de pokemon: <strong>{compartida.id}</strong></p>
       <p>Nombre del pokemon: <strong>{compartida.nombre}</strong></p>
