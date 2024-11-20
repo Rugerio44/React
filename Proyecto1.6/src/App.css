@@ -67,3 +67,35 @@
   font-weight: bold;
   align-content: center;
 }
+
+.inicio__form{
+  display: flex;
+  flex-direction: column;
+}
+
+.form__dentro{
+  margin-bottom: 1.5rem;
+  border: 2px solid rgb(0, 78, 151);
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  padding: 0.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.form__dentro:hover{
+  background-color:  rgb(0, 78, 151);
+  border: 2px solid rgb(0, 53, 102);
+}
+.form__dentro.active { 
+  background-color: rgb(0, 78, 151); 
+  border: 2px solid rgb(0, 53, 102); 
+}
+.inicio__resultado{
+    font-size: 1.2rem;
+    text-align: left;
+} 
+
+.enviado{
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 78, 151);
+}
