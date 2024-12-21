@@ -5,6 +5,7 @@ import "./App.css";
 import { MiFormulario } from "./components/MiFormulario";
 //import { MiComponente } from "./components/MiComponente";
 // import {PruebasCustoms} from './components/PruebasCustoms';
+import { Miusuario } from './components/Miusuario';
 
 function App() {
   
@@ -21,6 +22,8 @@ function App() {
       </div>
       {/* <MiComponente /> */}
       {/* <PruebasCustoms/> */}
+      {/* <Miusuario/> */}
+      <Miusuario/>
       <MiFormulario/>
 
     </div>
