@@ -22,9 +22,8 @@ function App() {
       </div>
       {/* <MiComponente /> */}
       {/* <PruebasCustoms/> */}
-      {/* <Miusuario/> */}
-      <Miusuario/>
-      <MiFormulario/>
+      <Miusuario/>  
+      <MiFormulario/> 
 
     </div>
     
