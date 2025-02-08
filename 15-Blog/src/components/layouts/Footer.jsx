@@ -2,6 +2,9 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <div>Footer</div>
+    <div> 
+    <footer className="footer">
+        &copy; Máster en React - <a href="https://victorroblesweb.es">victorroblesweb.es</a>
+    </footer></div>
   )
 }
