@@ -10,3 +10,4 @@ start /min "" "C:\Users\giann\AppData\Roaming\Microsoft\Windows\Start Menu\Progr
 
 start cmd.exe /k "mongod --dbpath C:\data\db"
 
+start cmd.exe /k "cd /d D:\CSS\15-Blog && code ."
