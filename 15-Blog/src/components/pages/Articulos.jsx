@@ -28,7 +28,7 @@ export const Articulos = () => {
       
     } catch (error) {
       console.error("Error fetching articles:", error);
-    }
+    } 
   }
 
   return (

@@ -1,17 +1,20 @@
 
-export const Peticion = async (url, metodo, datosaguardar) => {
+export const Peticion = async (url, metodo, datosaguardar = '') => {
   let cargando = true;
   let datos = null;
 
   let opciones = {
     method: "GET",
+    
   };
 
   if (metodo === "GET" || metodo === "DELETE") {
+    console.log(opciones.method + "metodo");
     opciones = {
       method: metodo,
     };
-  } else if (metodo === "POST" || metodo === "PUT") {
+  }
+  if (metodo === "POST" || metodo === "PUT") {
     opciones = {
       method: metodo,
       body: JSON.stringify(datosaguardar),
@@ -19,7 +22,9 @@ export const Peticion = async (url, metodo, datosaguardar) => {
         "Content-Type": "application/json",
       },
     };
+    
   }
+  
 
   try {
     const peticion = await fetch(url, opciones);

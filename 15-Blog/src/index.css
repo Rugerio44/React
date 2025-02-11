@@ -260,3 +260,38 @@ input[type="button"]{
       width: 80%;
   }
 }
+
+.formulario__formulario-group{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.formulario__group-contenido {
+  margin: 0 auto;
+  width: 80%;
+  height: 60px;
+  border: 1px solid #d1defa;
+  outline: 0;
+}
+.formulario__group-titulos {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: left;
+  text-align: left;
+  margin-left: 4.5rem;
+}
+
+.formulario__group-box {
+  margin: 0 auto; 
+  width: 80%;
+  height: 33px;
+  border: 1px solid #d1defa;
+  outline: 0;
+}
+.formulario__group-boximage{
+  margin: 0 auto;
+  width: 80%;
+  padding-top: 0.5rem;
+  outline: 0; 
+}
