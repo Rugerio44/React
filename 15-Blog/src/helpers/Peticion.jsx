@@ -22,7 +22,6 @@ export const Peticion = async (url, metodo, datosaguardar = '') => {
         "Content-Type": "application/json",
       },
     };
-    
   }
   
 

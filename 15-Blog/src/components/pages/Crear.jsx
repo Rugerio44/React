@@ -23,9 +23,10 @@ export const Crear = () => {
       
       if(datos.status === "success"){
         setResultado(true);
+        console.log(datos); 
       }
       
-      console.log(datos); 
+      
   }
 
 
