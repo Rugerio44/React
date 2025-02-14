@@ -6,8 +6,8 @@ import {Global} from '../../helpers/Global';
 
 export const Crear = () => {
   
-    const {formulario, enviado,cambiado} = useform({});
-    const {resultado, setResultado} = useState(false);
+    const {formulario, enviado,cambiado} = useform();
+    const {resultado, setResultado} = useState("no_enviado");
 
 
     const guardarArticulo = async (e) => {
@@ -18,41 +18,40 @@ export const Crear = () => {
       console.log("Datos del formulario:", nuevoArticulo);
 
       //Guardar evento en el backend
-      const {datos, cargando} = await Peticion(Global.url +"crear","POST", nuevoArticulo);
+      const {datos, cargando} = await Peticion(Global.url +'crear','POST', nuevoArticulo);
 
       
-      if(datos.status === "success"){
-        setResultado(true);
-        console.log(datos); 
+      if (datos && datos.status === "success") {
+        setResultado("Guardado");
       }
-      
-      
-  }
+       
+      console.log(datos);
+    };
 
 
   return (
     <div className='jumbo'>
       <h1>Crear Articulo</h1>
       <p>Formulario para crear un articulo</p>
-      <pre> {JSON.stringify(formulario,null,2)} </pre>
-      <strong> {resultado ? "Articulo guardado correctamente": ""}</strong>
+      <pre> {JSON.stringify(formulario)} </pre>
+      <strong> {resultado ? "Articulo guardado correctamente":""}</strong>
       
       {/*Crear el articuloo*/}
       <form className='formulario' onSubmit={guardarArticulo} >
 
         <div className='formulario__formulario-group'>
            <label htmlFor="titulo" className='formulario__group-titulos'>Titulo</label>
-           <input onChange={cambiado} type="text" name='titulo'  className='formulario__group-box'/>
+           <input onChange={cambiado} type="text" name='titulo'  className='formulario__group-box' placeholder='Titulo del blog'/>
         </div>
 
         <div className='formulario__formulario-group'>
            <label htmlFor="contenido" className='formulario__group-titulos'>Contenido</label>
-           <textarea onChange={cambiado} type="text" name='contenido' className='formulario__group-contenido'/>
+           <textarea onChange={cambiado} type="text" name='contenido' className='formulario__group-contenido'placeholder='Contenido del blog'/>
         </div>
  
         <div className='formulario__formulario-group'>
            <label htmlFor="file0" className='formulario__group-titulos'>Imagen</label>
-           <input onChange={cambiado} type="file" name='file0' id='file' className='formulario__group-boximage' />
+           <input onChange={cambiado} type="file" name='file0' id='file' className='formulario__group-boximage' placeholder='imagen' />
         </div>
 
         <input type="submit" value='Guardar' className='formulario-guardar'/>
