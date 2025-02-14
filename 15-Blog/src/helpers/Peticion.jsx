@@ -9,20 +9,21 @@ export const Peticion = async (url, metodo, datosaguardar = '') => {
   };
 
   if (metodo === "GET" || metodo === "DELETE") {
-    console.log(opciones.method + "metodo");
+    console.log(opciones.method + " metodo");
     opciones = {
       method: metodo,
     };
   }
   if (metodo === "POST" || metodo === "PUT") {
+    console.log(metodo + " metodo");
     opciones = {
       method: metodo,
       body: JSON.stringify(datosaguardar),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json;", 
       },
+    }
     };
-  }
   
 
   try {
