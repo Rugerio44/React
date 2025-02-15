@@ -1,5 +1,5 @@
 
-export const Peticion = async (url, metodo, datosaguardar = '') => {
+export const Peticion = async (url,metodo, datosaguardar = '') => {
   let cargando = true;
   let datos = null;
 
@@ -20,15 +20,17 @@ export const Peticion = async (url, metodo, datosaguardar = '') => {
       method: metodo,
       body: JSON.stringify(datosaguardar),
       headers: {
-        "Content-Type": "application/json;", 
-      },
+        "Content-Type": "application/json"
+      },     
     }
     };
   
-
+    console.log(datosaguardar + " metodo");
+    
+    
   try {
     const peticion = await fetch(url, opciones);
-    datos = await peticion.json();
+      datos = await peticion.json();
   } catch (error) {
     console.error("Error fetching data:", error);
   } finally {
