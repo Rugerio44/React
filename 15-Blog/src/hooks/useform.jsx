@@ -23,7 +23,7 @@ export const useform = (initialState = {}) => {
     setFormulario(curso);
 
     document.querySelectorAll('.codigo').forEach(element => {
-      element.classList.add('enviado'); // Cambio: classList en lugar de classlist
+      element.classList.add('enviado');
     });
   }
 
@@ -36,9 +36,13 @@ export const useform = (initialState = {}) => {
     });
   }
 
+  const limpiarFormulario = () => {
+    setFormulario(initialState);
+  }
   return {
     formulario,
     enviado,
     cambiado,
+    limpiarFormulario,
   };
 };
