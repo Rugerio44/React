@@ -18,14 +18,13 @@ export const Crear = () => {
       console.log("Datos del formulario:", nuevoArticulo);
 
       //Guardar evento en el backend
-      const {datos, cargando} = await Peticion(Global.url +'crear','POST', nuevoArticulo);
+      const {datos, cargando} = await Peticion(Global.url +'crear/','POST', nuevoArticulo);
 
       
       if (datos && datos.status === "success") {
         setResultado("Guardado");
       }
        
-      console.log(datos);
     };
 
 
