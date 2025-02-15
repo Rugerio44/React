@@ -6,11 +6,14 @@ import {Global} from '../../helpers/Global';
 
 export const Crear = () => {
   
-    const {formulario, enviado,cambiado} = useform();
-    const {resultado, setResultado} = useState("no_enviado");
-
+    const {formulario, enviado,cambiado,limpiarFormulario } = useform();
+    
+    const [resultado, setResultado] = useState("no_enviado");
 
     const guardarArticulo = async (e) => {
+
+      
+
       e.preventDefault();
 
       //Recoger datos del formulario
@@ -23,8 +26,24 @@ export const Crear = () => {
       
       if (datos && datos.status === "success") {
         setResultado("Guardado");
+
+        //subir imagen
+
+        const fileInput = document.querySelector('# file');
+
+        
+
+
+
+
+        limpiarFormulario();
+      }
+      else{
+        setResultado("Error al guardar");
+        
       }
        
+      
     };
 
 
@@ -33,14 +52,17 @@ export const Crear = () => {
       <h1>Crear Articulo</h1>
       <p>Formulario para crear un articulo</p>
       <pre> {JSON.stringify(formulario)} </pre>
-      <strong> {resultado ? "Articulo guardado correctamente":""}</strong>
+
+      
+      <strong> {resultado == "Guardado" ? "Articulo guardado correctamente":""}</strong> 
+      <strong> {resultado == "Error al guardar" ? "Faltan Datos":""}</strong>
       
       {/*Crear el articuloo*/}
       <form className='formulario' onSubmit={guardarArticulo} >
 
         <div className='formulario__formulario-group'>
            <label htmlFor="titulo" className='formulario__group-titulos'>Titulo</label>
-           <input onChange={cambiado} type="text" name='titulo'  className='formulario__group-box' placeholder='Titulo del blog'/>
+           <input onChange={cambiado} type="text" name='titulo'  className='formulario__group-box' placeholder='Titulo del blog (Min:5 letras)'/>
         </div>
 
         <div className='formulario__formulario-group'>
