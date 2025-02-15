@@ -18,31 +18,42 @@ export const Crear = () => {
 
       //Recoger datos del formulario
       let nuevoArticulo = formulario;
-      console.log("Datos del formulario:", nuevoArticulo);
+      
 
       //Guardar evento en el backend
-      const {datos, cargando} = await Peticion(Global.url +'crear/','POST', nuevoArticulo);
+      const {datos} = await Peticion(Global.url +'crear/','POST', nuevoArticulo);
 
       
+
       if (datos && datos.status === "success") {
         setResultado("Guardado");
 
         //subir imagen
 
-        const fileInput = document.querySelector('# file');
+        const fileInput = document.querySelector('#file');
 
+        const formdata = new FormData();
+        formdata.append('file0', fileInput.files[0]);
+
+        const subida = await Peticion(Global.url +'subir-imagen/'+datos.articulo._id,'POST', formdata,true);
+
+        console.log("Como estas");
         
-
-
-
-
-        limpiarFormulario();
+        if(subida.datos.status === "success"){
+          setResultado("Guardado");
+          console.log("hola");
+          limpiarFormulario();
+          e.target.reset();
+        }else{
+        setResultado("Error al guardar");  
+        }
+        
       }
       else{
-        setResultado("Error al guardar");
-        
+        setResultado("Error al guardar1");  
       }
        
+      
       
     };
 
@@ -55,10 +66,11 @@ export const Crear = () => {
 
       
       <strong> {resultado == "Guardado" ? "Articulo guardado correctamente":""}</strong> 
-      <strong> {resultado == "Error al guardar" ? "Faltan Datos":""}</strong>
+      <strong> {resultado == "Error al guardar" ? "Datos Erroneos":""}</strong>
+      <strong> {resultado == "Error al guardar1" ? "Datos ingresados Erroneos1":""}</strong>
       
       {/*Crear el articuloo*/}
-      <form className='formulario' onSubmit={guardarArticulo} >
+      <form className='formulario' onSubmit={guardarArticulo} id="Mi_Formulario" >
 
         <div className='formulario__formulario-group'>
            <label htmlFor="titulo" className='formulario__group-titulos'>Titulo</label>
