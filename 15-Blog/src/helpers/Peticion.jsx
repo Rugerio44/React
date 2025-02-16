@@ -9,7 +9,7 @@ export const Peticion = async (url,metodo, datosaguardar = '', archivos = false)
   };
 
   if (metodo === "GET" || metodo === "DELETE") {
-    console.log(opciones.method + " metodo");
+    
     opciones = {
       method: metodo,
     };
@@ -25,7 +25,7 @@ export const Peticion = async (url,metodo, datosaguardar = '', archivos = false)
       }
     }
     else {
-    console.log(metodo + " metodo");
+    
     opciones = {
       method: metodo,
       body : JSON.stringify(datosaguardar),
@@ -39,7 +39,7 @@ export const Peticion = async (url,metodo, datosaguardar = '', archivos = false)
     
     };
   
-    console.log(datosaguardar + " metodo");
+    
     
     
   try {
