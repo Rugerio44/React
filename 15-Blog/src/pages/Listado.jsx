@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Global } from '../../helpers/Global';
 import { Peticion } from '../../helpers/Peticion';
 
-
 export const Listado = ({articulos,setArticulos}) => {
 
-  const [showModal, setShowModal] = useState(false);
-  const [articuloId, setArticuloId] = useState(null);
-
   const eliminar =  async (id) => {
+    const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar este artículo permanentemente?");
+    if (!confirmacion) {
+      return;
+    }else {
     let {datos} = await Peticion(Global.url+"articulos/"+id,"DELETE",);
 
     console.log(datos);
@@ -17,29 +17,11 @@ export const Listado = ({articulos,setArticulos}) => {
       let articulosActualizados = articulos.filter(articulo => articulo._id != id)
       setArticulos(articulosActualizados);
     }
-   
+   }
   }
-
-  const handleDeleteClick = (id) => {
-    setArticuloId(id);
-    setShowModal(true);
-  }
-
-  const handleConfirmDelete = () => {
-    eliminar(articuloId);
-    setShowModal(false);
-  }
-
-  const handleCancelDelete = () => {
-    setShowModal(false);
-    setArticuloId(null);
-  }
-
-  const articulo = articulos.find(articulo => articulo._id === articuloId);
 
   return (
-    <>
-      {articulos.length >= 1 ? (
+    articulos.length >= 1 ? (
         articulos.map((articulo) => (
           <article key={articulo._id} className="articulo-item">
             <div className="mask">
@@ -59,23 +41,14 @@ export const Listado = ({articulos,setArticulos}) => {
               <p className="description">{articulo.contenido}</p>
 
               <button className="edit">Editar</button>
-              <button className="delete" onClick={() => handleDeleteClick(articulo._id)}>Borrar</button>
+              <button className="delete" onClick={ () => {
+                eliminar(articulo._id);
+              }}>Borrar</button>
             </div>
           </article>
         ))
       ) : (
         <h1>No hay articulos</h1>
-      )}
-
-      {showModal && (
-        <div className="modal">
-          <div className="modal__contenido">
-            <p>¿Estás seguro de que deseas eliminar permanentemente a "{articulo.titulo}" ?</p>
-            <button onClick={handleConfirmDelete}>Sí</button>
-            <button onClick={handleCancelDelete}>No</button>
-          </div>
-        </div>
-      )}
-    </>
+      )
   )
 }
