@@ -7,8 +7,10 @@ import { Header } from '../components/layouts/Header';
 import { Nav } from '../components/layouts/Nav';
 import { Sidebar } from '../components/layouts/Sidebar';
 import { Footer } from '../components/layouts/Footer';
+import { Busqueda } from '../components/pages/Busqueda';
 
 function Rutas() {
+
   return (
     <BrowserRouter>
       {/* LAYOUT */}
@@ -24,7 +26,12 @@ function Rutas() {
               <Route path="/inicio" element={<Inicio />} />
               <Route path="/articulos" element={<Articulos />} />
               <Route path="/crear" element={<Crear />} />
-              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/buscar/:busqueda" element={<Busqueda />} />
+              <Route path="*" element={
+                <div>
+                  <h2>404 - Página no encontrada</h2>
+                </div>
+              } />
             </Routes>
           </div>
 
