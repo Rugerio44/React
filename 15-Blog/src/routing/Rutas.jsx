@@ -8,6 +8,8 @@ import { Nav } from '../components/layouts/Nav';
 import { Sidebar } from '../components/layouts/Sidebar';
 import { Footer } from '../components/layouts/Footer';
 import { Busqueda } from '../components/pages/Busqueda';
+import { Articulo } from '../components/pages/Articulo';
+import { Editar } from '../components/pages/Editar';
 
 function Rutas() {
 
@@ -27,6 +29,8 @@ function Rutas() {
               <Route path="/articulos" element={<Articulos />} />
               <Route path="/crear" element={<Crear />} />
               <Route path="/buscar/:busqueda" element={<Busqueda />} />
+              <Route path="/articulo/:id" element={<Articulo />} />
+              <Route path="/editar/:id" element={<Editar />} />
               <Route path="*" element={
                 <div>
                   <h2>404 - Página no encontrada</h2>

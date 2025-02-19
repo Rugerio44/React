@@ -128,6 +128,12 @@ body{
 .title {
   font-size: 27px;
   text-align: left;
+  
+}
+.title__link{
+  color: #7902b1;
+  text-decoration: none;
+  transition: color 300ms;
 }
 
 .description {
@@ -151,11 +157,29 @@ body{
   /* object-fit: cover; */
   border-radius: 2rem;
 }
+.mask__imagen1{
+  width: 50%;
+  height: 98%;
+  /* object-fit: cover; */
+  border-radius: 2rem;
+  padding: 1rem;
+}
+.mask__imagen2 {
+  width: 25%;
+  /* object-fit: cover; */
+  border-radius: 2rem;
+  /* padding: 1rem; */
+  border: 4px solid #7902B1;
+  /* background: black; */
+  margin-bottom: 0.5rem;
+}
 
 .button,
 button,
 input[type="submit"],
-input[type="button"]{
+input[type="button"],
+.edit
+{
   width: 100px;
   background: #7902b1 10%;
   color: white;
@@ -171,6 +195,7 @@ input[type="button"]{
   transition: all 300ms;
   text-decoration: none;
   margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .articulo-item .edit:hover{
@@ -315,4 +340,26 @@ input[type="button"]{
   border-radius: 10px 10px 10px 10px;
   text-align: center;
   border: 4px solid rgb(174, 0, 255);
+}
+.busqueda-error {
+  color: #7902B1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.imagen-articulo{
+  padding: 1rem;
+}
+
+.imagen-articuloeditar{
+    display: flex;
+    justify-content: left;
+    padding-left: 5rem;
 }

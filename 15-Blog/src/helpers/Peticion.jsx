@@ -16,7 +16,7 @@ export const Peticion = async (url,metodo, datosaguardar = '', archivos = false)
   }
   if (metodo === "POST" || metodo === "PUT") {
 
-    let body = "";
+
 
     if (archivos) {
       opciones = {
