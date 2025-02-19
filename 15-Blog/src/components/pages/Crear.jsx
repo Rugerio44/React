@@ -3,12 +3,14 @@ import { useState } from 'react';
 import {useform} from '../../hooks/useform';
 import {Peticion} from '../../helpers/Peticion';
 import {Global} from '../../helpers/Global';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export const Crear = () => {
   
-    const {formulario, enviado,cambiado,limpiarFormulario } = useform();
-    
+    const {formulario, enviado,cambiado,limpiarFormulario } = useform();   
     const [resultado, setResultado] = useState("no_enviado");
+    const navegar = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
     const guardarArticulo = async (e) => {
 
@@ -37,14 +39,19 @@ export const Crear = () => {
 
         
         
-        if(subida.datos.status === "success"){
+        if (subida.datos.status === "success") {
           setResultado("Guardado");
-          
-          limpiarFormulario();
           e.target.reset();
-        }else{
-        setResultado("Error al guardar");  
-        e.target.reset();
+          setShowModal(true);
+          
+          
+          
+        } else {
+          setResultado("Error al guardar");
+          e.target.reset();
+          setShowModal(true);
+          
+          
         }
         
       }
@@ -52,6 +59,11 @@ export const Crear = () => {
         setResultado("Error al guardar1");  
       }
 
+    };
+
+    const handleCloseModal = () => {
+      setShowModal(false);
+      navegar("/articulos/", { replace: true });
     };
 
 
@@ -87,6 +99,15 @@ export const Crear = () => {
         <input type="submit" value='Guardar' className='formulario-guardar'/>
         
       </form>
+
+      {showModal && (
+        <div className="modal">
+          <div className="modal__contenido">
+            <p>Artículo creado correctamente</p>
+            <button onClick={handleCloseModal}>Aceptar</button>
+          </div>
+        </div>
+      )}
      
     </div>
   )
