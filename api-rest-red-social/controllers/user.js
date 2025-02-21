@@ -11,5 +11,5 @@ const pruebaUser = (req, res) => {
 //Exportar la acciones
 
 module.exports = {
-  prueba
+  pruebaUser
 };
