@@ -63,13 +63,58 @@ const register = async (req, res) => {
   }
 };
 
-const login = (req, res) => { 
+const login = (req, res) => {
+  // Recoger los parametros de la petición
+  let params = req.body;
+
+  if (!params.email || !params.password) {
+    return res.status(400).send({
+      status: "error",
+      message: "Faltan datos",
+    });
+  }
+    //Buscar en la BD si existe el usuario
+    user.findOne({ email: params.email }, (error, user) => {
+      if (error) {
+        return res.status(500).send({
+          status: "error",
+          message: "Error en la petición",
+        });
+      }
+
+      if (!user) {
+        return res.status(404).send({
+          status: "error",
+          message: "El usuario no existe",
+        });
+      }
+
+      // Si lo encuentra,
+      // Comprobar la contraseña (coincidencia de email y password / bcrypt)
+      bcrypt.compare(params.password, user.password, (error, check) => {
+        // Si es correcto,
+        if (check) {
+          // Generar token de jwt y devolverlo
+          // Si no es correcto,
+          return res.status(404).send({
+            status: "error",
+            message: "El usuario no se ha podido identificar",
+          });
+        }
+      });
+    });
+
+    // Comprobar que me llegan los datos (+ validación)
+
+    //Devolucon de token
+
+    //Datos del usuario
+    
   
-
 };
-
 // Exportar las acciones
 module.exports = {
   pruebaUser,
-  register
+  register,
+  login,
 };
