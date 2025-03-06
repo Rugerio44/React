@@ -7,6 +7,7 @@ const userSchema = new Schema({
   lastName: String,
   birthdate: Date,
   nickname: { type: String, required: true },
+  biography : { type: String  },
   email: { type: String, required: true },
   password: { type: String, required: true },
   role: { type: String, default: "role_user" },
