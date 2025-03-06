@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-
+const jwt = require('../services/jwt');
+ 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
   return res.status(200).send({
@@ -63,54 +64,61 @@ const register = async (req, res) => {
   }
 };
 
-const login = (req, res) => {
-  // Recoger los parametros de la petición
-  let params = req.body;
-
-  if (!params.email || !params.password) {
-    return res.status(400).send({
+let login = async (req, res) => {
+  try {
+    // RECOGER PARAMETROS BODY
+    const { email, password } = req.body;
+ 
+    // VALIDAR QUE SE ENVIARON TODOS LOS DATOS
+    if (!email || !password) {
+      return res.status(400).send({
+        status: "error",
+        message: "Faltan datos por enviar",
+      });
+    }
+ 
+    // BUSCAR USUARIO EN LA BASE DE DATOS
+    const user = await User.findOne({ email }).select('+password'); // Incluye el campo `password` si está excluido por defecto
+    
+    if (!user) {
+      return res.status(404).send({
+        status: "error",
+        message: "No existe el usuario que buscas",
+      });
+    }
+ 
+    // COMPROBAR SU CONTRASEÑA
+    const pwdMatch = bcrypt.compareSync(password, user.password);
+    
+    if (!pwdMatch) {
+      return res.status(400).send({
+        status: "error",
+        message: "Contraseña incorrecta",
+      });
+    }
+ 
+    // Conseguir token
+    const token = jwt.createToken(user);
+ 
+    // DEVOLVER DATOS DEL USUARIO (sin la contraseña)
+    return res.status(200).send({
+      status: "success",
+      message: "Login exitoso",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      }
+      // token, // Incluye el token si lo estás generando
+    });
+  } catch (error) {
+    // MANEJAR ERRORES
+    return res.status(500).send({
       status: "error",
-      message: "Faltan datos",
+      message: "Error interno del servidor",
+      error: error.message,
     });
   }
-    //Buscar en la BD si existe el usuario
-    user.findOne({ email: params.email }, (error, user) => {
-      if (error) {
-        return res.status(500).send({
-          status: "error",
-          message: "Error en la petición",
-        });
-      }
-
-      if (!user) {
-        return res.status(404).send({
-          status: "error",
-          message: "El usuario no existe",
-        });
-      }
-
-      // Si lo encuentra,
-      // Comprobar la contraseña (coincidencia de email y password / bcrypt)
-      bcrypt.compare(params.password, user.password, (error, check) => {
-        // Si es correcto,
-        if (check) {
-          // Generar token de jwt y devolverlo
-          // Si no es correcto,
-          return res.status(404).send({
-            status: "error",
-            message: "El usuario no se ha podido identificar",
-          });
-        }
-      });
-    });
-
-    // Comprobar que me llegan los datos (+ validación)
-
-    //Devolucon de token
-
-    //Datos del usuario
-    
-  
 };
 // Exportar las acciones
 module.exports = {
