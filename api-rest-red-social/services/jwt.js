@@ -1,12 +1,12 @@
 //importar dependencias 
-const jwt = require('jsonwebtoken');
+const jwt = require('jwt-simple');
 const moment = require('moment');
 
 //Clave secreta 
 const secret = 'clave-secreta-jwt4444';
 
 //crear funcion para generar tokens
-exports.createToken = (user) => {
+const createToken = (user) => {
     //crear token
     const payload = {
         id: user._id,
@@ -21,8 +21,12 @@ exports.createToken = (user) => {
         exp: moment().add(30, 'days').unix()
     };
     //devolver jwt token codificados
-    return jwt.sign(payload, secret);
+    return jwt.encode(payload, secret);
 };
 
+module.exports = {
+    createToken,
+    secret,
+};
 
 

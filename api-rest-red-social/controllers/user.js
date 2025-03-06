@@ -1,11 +1,13 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
+const mongoosePagination = require('mongoose-pagination');
  
 // Acciones de prueba
 const pruebaUser = (req, res) => {
   return res.status(200).send({
-    message: "Mensaje enviado desde el Controllers/user.js"
+    message: "Mensaje enviado desde el Controllers/user.js hola "+req.user.name ,
+    user: req.user
   });
 };
 
@@ -108,7 +110,9 @@ let login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        nickname: user.nickname,
       }
+      ,token 
       // token, // Incluye el token si lo estás generando
     });
   } catch (error) {
@@ -120,9 +124,96 @@ let login = async (req, res) => {
     });
   }
 };
+
+const profile = async (req, res) => {
+  try {
+    // Recibir el parametro del id
+    const id = req.params.id;
+    console.log(id);
+
+    // Consulta para sacar los datos del usuario
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).send({
+        status: "error",
+        message: "Usuario no existe",
+      });
+    }
+
+    return res.status(200).send({
+      status: "success",
+      message: "Usuario: " + req.user.name,
+      user: req.user,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Error en la peticion",
+      error: error.message,
+    });
+  }
+};
+
+const list = async (req, res) => {
+  try {
+    // Consulta para sacar los datos del usuario
+    let page = 1;
+    if (req.params.page) {
+      page = req.params.page;
+    }
+    page = parseInt(page);
+    let itemsPerPage = 5;
+    const startIndex = (page - 1) * itemsPerPage;
+
+    const users = await User.find()
+      .sort("_id")
+      .skip(startIndex)
+      .limit(itemsPerPage);
+
+    if (!users || users.length === 0) {
+      return res.status(404).send({
+        status: "error",
+        message: "No hay usuarios disponibles",
+      });
+    }
+
+    const total = await User.countDocuments();
+
+    return res.status(200).send({
+      status: "success",
+      message: "Listado de usuarios",
+      users,
+      total,
+      page,
+      itemsPerPage,
+      pages: Math.ceil(total / itemsPerPage),
+    });
+
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Error en la consulta",
+      error: error.message,
+    });
+  }
+};
+
+const update = async (req, res) => {
+  return res.status(500).send({
+    status: 'sucess',
+    message: 'Update'
+  })
+
+}
+
+
 // Exportar las acciones
 module.exports = {
   pruebaUser,
   register,
   login,
+  profile,
+  list,
+  update,
 };
