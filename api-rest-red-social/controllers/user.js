@@ -200,13 +200,116 @@ const list = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  return res.status(500).send({
-    status: 'sucess',
-    message: 'Update'
-  })
+  let userIdentity = req.user;
+  let userToUpdate = req.body;
 
-}
+  // Eliminar Campos que no me sirvan
+  delete userToUpdate.role;
+  delete userToUpdate.exp;
+  delete userToUpdate.iat;
+  delete userToUpdate.image;
 
+  // Comprobar si el usuario ya existe
+  if (userToUpdate.email || userToUpdate.nickname) {
+    let users = await User.find({
+      $or: [
+        userToUpdate.email ? { email: userToUpdate.email.toLowerCase() } : null,
+        userToUpdate.nickname
+          ? { nickname: userToUpdate.nickname.toLowerCase() }
+          : null,
+      ].filter(Boolean),
+    }).exec();
+
+    let userIsset = false;
+    users.forEach((user) => {
+      if (user.id.toString() !== userIdentity.id.toString()) {
+        userIsset = true;
+      }
+    });
+
+    if (userIsset) {
+      console.log("Usuario duplicado");
+      return res.status(200).send({
+        status: "success",
+        message: "El usuario ya existe",
+      });
+    }
+  }
+
+  // Cifrar la contraseña
+  if (userToUpdate.password) {
+    userToUpdate.password = await bcrypt.hash(
+      userToUpdate.password,
+      bcrypt.genSaltSync(10)
+    );
+  }
+
+  // Actualizar usuario en la base de datos
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      userIdentity.id,
+      userToUpdate,
+      { new: true }
+    );
+    return res.status(200).send({
+      status: "success",
+      message: "Usuario actualizado correctamente",
+      user: updatedUser,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Error al actualizar el usuario",
+      error: error.message,
+    });
+  }
+};
+
+const upload = (req, res) => {
+
+  // Comprobar si llega el fichero
+  if (!req.file) {
+    return res.status(404).send({
+      status: "error",
+      message: "Imagen no subida",
+    });
+  }
+  //Conseguir el nombre del archivo
+  let image = req.file.originalname;
+
+  //Sacar la extension del archivo
+  const imageSplit = image.split("\.");
+  const extension = imageSplit[1];
+ 
+  // Comprobar la extensión (solo imágenes permitidas)
+  if (extension != "png" && extension != "jpg" && extension != "jpeg" && extension != "gif") {
+    const filePath = req.file.path;
+
+    // Eliminar el archivo no válido
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        return res.status(500).send({
+          status: "error",
+          message: "Error al eliminar el archivo no válido",
+        });
+      }
+
+      return res.status(400).send({
+        status: "error",
+        message: "Extensión del archivo no válida",
+      });
+    });
+  } else {
+    return res.status(200).send({
+      status: "success",
+      message: "Subida de imagen correcta",
+      user: req.user,
+      file: req.file,
+      files: req.files,
+      image,
+    });
+  }
+};
 
 // Exportar las acciones
 module.exports = {
@@ -216,4 +319,5 @@ module.exports = {
   profile,
   list,
   update,
+  upload,
 };
