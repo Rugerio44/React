@@ -2,7 +2,9 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
 const mongoosePagination = require('mongoose-pagination');
- 
+const fs = require('fs'); // Importar el módulo fs 
+const path = require('path'); // Importar el módulo path
+
 // Acciones de prueba
 const pruebaUser = (req, res) => {
   return res.status(200).send({
@@ -265,7 +267,7 @@ const update = async (req, res) => {
   }
 };
 
-const upload = (req, res) => {
+const upload = async (req, res) => {
 
   // Comprobar si llega el fichero
   if (!req.file) {
@@ -299,16 +301,54 @@ const upload = (req, res) => {
         message: "Extensión del archivo no válida",
       });
     });
+
   } else {
-    return res.status(200).send({
-      status: "success",
-      message: "Subida de imagen correcta",
-      user: req.user,
-      file: req.file,
-      files: req.files,
-      image,
-    });
+    try {
+      const userUpdated = await User.findByIdAndUpdate(req.user.id, { image: req.file.filename }, { new: true });
+      if (!userUpdated) {
+        return res.status(500).send({
+          status: "error",
+          message: "Error al guardar la imagen del usuario",
+        });
+      }
+
+      return res.status(200).send({
+        status: "success",
+        message: "Imagen subida correctamente",
+        user: userUpdated,
+      });
+    } catch (error) {
+      return res.status(500).send({
+        status: "error",
+        message: "Error al guardar la imagen del usuario",
+        error: error.message,
+      });
+    }
   }
+};
+
+const avatar = (req, res) => {
+
+  //Sacar el parametro de la url 
+  const file = req.params.file 
+
+  //Montar el path real de la imagen
+
+  const filePath = path.join(__dirname, '../uploads/avatars/', file);
+
+  //Comprobar si existe
+  fs.stat(filePath, (error, exists) => {
+    if (!exists) {
+      return res.status(404).send({
+        status: "error",
+        message: "La imagen no existe",
+      });
+    }
+    //Devolver la imagen
+    return res.sendFile(path.resolve(filePath));
+  });
+  
+
 };
 
 // Exportar las acciones
@@ -320,4 +360,5 @@ module.exports = {
   list,
   update,
   upload,
+  avatar,
 };
