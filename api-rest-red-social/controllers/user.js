@@ -249,7 +249,7 @@ const update = async (req, res) => {
   // Actualizar usuario en la base de datos
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      userIdentity.id,
+      {_id: userIdentity.id},
       userToUpdate,
       { new: true }
     );
@@ -304,7 +304,7 @@ const upload = async (req, res) => {
 
   } else {
     try {
-      const userUpdated = await User.findByIdAndUpdate(req.user.id, { image: req.file.filename }, { new: true });
+      const userUpdated = await User.findByIdAndUpdate({_id: req.user.id}, { image: req.file.filename }, { new: true });
       if (!userUpdated) {
         return res.status(500).send({
           status: "error",
