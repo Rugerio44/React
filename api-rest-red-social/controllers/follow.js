@@ -1,6 +1,10 @@
 const Follow = require("../models/follow");
 const User = require("../models/user");
 
+const mongoosePaginate = require("mongoose-pagination");
+//Importar servicio 
+const followService = require("../services/followUserIds");
+
 
 
 
@@ -43,23 +47,102 @@ const pruebaFollow = (req, res) => {
     }
   };
 
-  const deleteFollow = (req, res) => {
+  const deleteFollow = async (req, res) => {
+    try {
+      // Recoger el id del usuario
+      const userId = req.user.id;
+      // Recoger el id del usuario a dejar de seguir
+      const followId = req.params.id;
+      // Find coincidencias y eliminar
+      const followDeleted = await Follow.deleteOne({ user: userId, followed: followId });
+  
+      if (!followDeleted) {
+        return res.status(500).send({
+          status: "error",
+          message: "Error al dejar de seguir",
+        });
+      }
+  
+      return res.status(200).send({
+        status: "success",
+        message: "El follow se ha eliminado",
+        followDeleted: followDeleted,
+        user: req.user,
+      });
+    } catch (error) {
+      return res.status(500).send({
+        status: "error",
+        message: "Error al dejar de seguir",
+        error: error.message,
+      });
+    }
+  };
+   
+  const following = async (req, res) => {
+    try {
+      // Sacar el id del usuario identificado
+      let userId = req.user.id;
 
-    
+      // Comprobar si me llega el id por parametro en url
+      if (req.params.id) {
+        userId = req.params.id;
+      }
 
+      // Comprobar si me llega la pagina por parametro en url
+      let page = 1;
 
+      if (req.params.page) {
+        page = req.params.page;
+      } else {
+        page = 1;
+      }
 
+      const itemsPerPage = 5;
+
+      const follows = await Follow.find({ user: userId })
+        .populate("user followed", "-password -role -create_at -__v")
+        .skip((page - 1) * itemsPerPage)
+        .limit(itemsPerPage)
+        .exec();
+
+      const total = await Follow.countDocuments({ user: userId });
+
+      let followUserIds = await followService.followUserIds(req.user.id);
+
+      return res.status(200).send({
+        status: "success",
+        message: "Listado de usuarios que estoy siguiendo " + req.user.name,
+        total: total,
+        pages: Math.ceil(total / itemsPerPage),
+        page : page,
+        user_following: followUserIds,
+        follows: follows,
+        user_follow_me: followUserIds.followers,
+        
+      });
+    } catch (error) {
+      return res.status(500).send({
+        status: "error",
+        message: "Error al obtener los usuarios seguidos",
+        error: error.message,
+      });
+    }
+  };
+
+  const followers = (req, res) => {
     return res.status(200).send({
       status: "success",
-      message: "Mensaje enviado desde el Controllers/follow.js",
-      user: req.user,
+      message: "Mensaje enviado desde el Controllers/follow.js "+ req.user.name
     })
-
   }
+
+   
   
    
   module.exports = {
     pruebaFollow,
     save,
     deleteFollow,
+    following,
+    followers,
   };
