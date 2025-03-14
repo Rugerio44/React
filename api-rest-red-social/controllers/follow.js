@@ -100,7 +100,7 @@ const pruebaFollow = (req, res) => {
       const itemsPerPage = 5;
 
       const follows = await Follow.find({ user: userId })
-        .populate("user followed", "-password -role -create_at -__v")
+        .populate("user followed", "-password -role -create_at -__v -email")
         .skip((page - 1) * itemsPerPage)
         .limit(itemsPerPage)
         .exec();
@@ -129,11 +129,56 @@ const pruebaFollow = (req, res) => {
     }
   };
 
-  const followers = (req, res) => {
-    return res.status(200).send({
-      status: "success",
-      message: "Mensaje enviado desde el Controllers/follow.js "+ req.user.name
-    })
+  const followers = async (req, res) => {
+
+    try {
+      // Sacar el id del usuario identificado
+      let userId = req.user.id;
+
+      // Comprobar si me llega el id por parametro en url
+      if (req.params.id) {
+        userId = req.params.id;
+      }
+
+      // Comprobar si me llega la pagina por parametro en url
+      let page = 1;
+
+      if (req.params.page) {
+        page = req.params.page;
+      } else {
+        page = 1;
+      }
+
+      const itemsPerPage = 5;
+
+      const follows = await Follow.find({ followed: userId })
+        .populate("user followed", "-password -role -create_at -__v -email")
+        .skip((page - 1) * itemsPerPage)
+        .limit(itemsPerPage)
+        .exec();
+
+      const total = await Follow.countDocuments({ followed: userId });
+
+      let followUserIds = await followService.followUserIds(req.user.id);
+
+      return res.status(200).send({
+        status: "success",
+        message: "Listado de usuarios que me siguen " + req.user.name,
+        total: total,
+        pages: Math.ceil(total / itemsPerPage),
+        page : page,
+        follows: follows,
+        user_follow_me: followUserIds.followers,
+        user_following: followUserIds.following,
+        
+      });
+    } catch (error) {
+      return res.status(500).send({
+        status: "error",
+        message: "Error al obtener los usuarios seguidos",
+        error: error.message,
+      });
+    }
   }
 
    
@@ -145,4 +190,5 @@ const pruebaFollow = (req, res) => {
     deleteFollow,
     following,
     followers,
+    
   };

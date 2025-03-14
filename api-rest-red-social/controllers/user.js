@@ -4,6 +4,10 @@ const jwt = require('../services/jwt');
 const mongoosePagination = require('mongoose-pagination');
 const fs = require('fs'); // Importar el módulo fs 
 const path = require('path'); // Importar el módulo path
+const followUserIds = require('../services/followUserIds');
+const Follow = require('../models/follow');
+const Publication = require('../models/publication');
+
 
 // Acciones de prueba
 const pruebaUser = (req, res) => {
@@ -131,7 +135,8 @@ const profile = async (req, res) => {
   try {
     // Recibir el parametro del id
     const id = req.params.id;
-    console.log(id);
+    console.log(`Profile user ID: ${id}`); // aquí esta el error
+    console.log(`Logged in user ID: ${req.user.id}`); // aquí esta el error
 
     // Consulta para sacar los datos del usuario
     const user = await User.findById(id);
@@ -143,10 +148,15 @@ const profile = async (req, res) => {
       });
     }
 
+    const followInfo = await followUserIds.followThisUser(req.user.id, id);
+    
+
     return res.status(200).send({
       status: "success",
       message: "Usuario: " + req.user.name,
-      user: req.user,
+      user: user,
+      Usersfollowing: followInfo.following,
+      Usersfollow_me: followInfo.followers,
     });
   } catch (error) {
     return res.status(500).send({
@@ -171,7 +181,9 @@ const list = async (req, res) => {
     const users = await User.find()
       .sort("_id")
       .skip(startIndex)
-      .limit(itemsPerPage);
+      .limit(itemsPerPage)
+      .select("-password -email -role -__v");
+
 
     if (!users || users.length === 0) {
       return res.status(404).send({
@@ -182,6 +194,8 @@ const list = async (req, res) => {
 
     const total = await User.countDocuments();
 
+    const followInfo = await followUserIds.followThisUser(req.user.id, id);
+
     return res.status(200).send({
       status: "success",
       message: "Listado de usuarios",
@@ -190,6 +204,8 @@ const list = async (req, res) => {
       page,
       itemsPerPage,
       pages: Math.ceil(total / itemsPerPage),
+      Usersfollowing: followInfo.following,
+      Usersfollow_me: followInfo.followers,
     });
 
   } catch (error) {
@@ -244,6 +260,8 @@ const update = async (req, res) => {
       userToUpdate.password,
       bcrypt.genSaltSync(10)
     );
+  }else{
+    delete userToUpdate.password;
   }
 
   // Actualizar usuario en la base de datos
@@ -351,7 +369,42 @@ const avatar = (req, res) => {
 
 };
 
+const counters = async (req, res) => {
+
+  let userId = req.user.sub;
+
+  if (req.params.id) {
+    userId = req.params.id;
+  }
+  
+  try {
+    const following = await Follow.countDocuments({ user: userId }); // aquí es el cambio
+
+    const followed = await Follow.countDocuments({ followed: userId }); // aquí es el cambio
+
+    const publications = await Publication.countDocuments({ user: userId }); // aquí es el cambio
+
+
+    return res.status(200).send({
+      userId,
+      following,
+      followed,
+      publications,
+    });
+    
+  } catch (error) {
+    return res.status(500).send({
+      status: "error",
+      message: "Error en la petición",
+      error: error.message,
+    });
+  }
+
+};
+
 // Exportar las acciones
+
+
 module.exports = {
   pruebaUser,
   register,
@@ -361,4 +414,5 @@ module.exports = {
   update,
   upload,
   avatar,
+  counters,
 };
