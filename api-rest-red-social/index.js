@@ -32,7 +32,7 @@ const FollowRoutes = require('./routes/follow');
 //ruta user
 app.use("/api/user", UserRoutes);
 //ruta publcation
-app.use("/api/publcation", PublicationRoutes);
+app.use("/api/publication", PublicationRoutes);
 //ruta follow
 app.use("/api/follow", FollowRoutes); 
 
