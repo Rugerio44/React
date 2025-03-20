@@ -6,12 +6,14 @@ import useAuth from '../../hooks/useAuth';
 
 export const Login = () => {
 
-  const { compartido } = useAuth();
+  const { auth } = useAuth();
   
   
 
   const {form, changed} = useForm({});
   const [saved, setSaved] = useState('not_sended');
+
+  const {setAuth} = useAuth();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -37,6 +39,17 @@ export const Login = () => {
 
 
       setSaved('login')
+
+
+      setAuth(data.user);
+
+      // Redireccionar al dashboard
+      setTimeout(() => {
+        window.location.reload ();
+      }, 10);
+
+
+      
     }
     else {
       setSaved('error')
@@ -48,7 +61,7 @@ export const Login = () => {
   return (
     <>
       <header className="content__header content__header--public">
-        <h1 className="content__title">Login , {compartido} </h1>
+        <h1 className="content__title">Login </h1>
       </header>
       <div className="content__posts">
         <form className="form-login" onSubmit={loginUser}>

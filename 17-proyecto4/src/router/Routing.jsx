@@ -1,11 +1,17 @@
 import React from 'react'
-import { Routes, Route, BrowserRouter,Navigate,Link } from 'react-router-dom';
+import { Routes, Route, BrowserRouter,Navigate,Link, NavLink } from 'react-router-dom';
 import { PublicLayout } from '../components/layout/public/PublicLayout';
 import { Login } from '../components/user/Login';
 import { Register } from '../components/user/Register';
 import { PrivateLayout } from '../components/layout/private/PrivateLayout';
 import { Feed } from '../components/publication/Feed';
 import { AuthProvider } from '../context/AuthProvider';
+import { Logout } from '../components/user/Logout';
+import {Error404} from '../components/user/Error404';
+import { People } from '../components/user/People';
+
+
+
 
 export const Routing = () => {
   return (
@@ -22,13 +28,11 @@ export const Routing = () => {
             <Route path="/social" element={<PrivateLayout />}>
               <Route index element={<Feed />} />
               <Route path="feed" element={<Feed />} />
+              <Route path="logout" element={<Logout/>} />
+              <Route path='gente' element={<People/>} />
             </Route>
 
-            <Route path="*" element={<div className='Error404'>
-              <h1 className='Error404__titulo'>Error 404 
-                No se encontró la ruta.</h1> 
-              <button className='Error404__boton'><Link to='/' className='Error404__boton--letter'>Regresar a Inicio</Link></button>
-            </div>} />
+            <Route path="*" element={<Error404/>} />
           </Routes>
       </AuthProvider> 
     </BrowserRouter>

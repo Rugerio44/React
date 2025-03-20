@@ -1,12 +1,17 @@
 import React from 'react'
+import useAuth from '../../hooks/useAuth'
 
 export const Feed = () => {
+
+    const auth = useAuth();
+
+
   return (
   <>
   
             <header className="content__header">
-                <h1 className="content__title">Timeline</h1>
-                <button className="content__button">Mostrar nuevas</button>
+                <h1 className="content__title">Publicaciones</h1>
+                <button className="content__button">Mostrar nuevas </button>
             </header>
 
             <div className="content__posts">
@@ -17,19 +22,19 @@ export const Feed = () => {
 
                         <div className="post__image-user">
                             <a href="#" className="post__image-link">
-                                <img src="/src/assets/img/user.png" className="post__user-image" alt="Foto de perfil"/>
+                                <img src='/src/assets/img/user.png' className="post__user-image" alt="Foto de perfil"/>
                             </a>
                         </div>
 
                         <div className="post__body">
 
                             <div className="post__user-info">
-                                <a href="#" className="user-info__name">Victor Robles</a>
+                                <a href="#" className="user-info__name">Victor Robles.</a>
                                 <span className="user-info__divider"> | </span>
                                 <a href="#" className="user-info__create-date">Hace 1 hora</a>
                             </div>
 
-                            <h4 className="post__content">Hola, buenos dias.</h4>
+                            <h4 className="post__content">Hola, buenos dias</h4>
 
                         </div>
 
