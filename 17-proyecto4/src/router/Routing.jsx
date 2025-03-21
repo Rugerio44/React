@@ -9,6 +9,7 @@ import { AuthProvider } from '../context/AuthProvider';
 import { Logout } from '../components/user/Logout';
 import {Error404} from '../components/user/Error404';
 import { People } from '../components/user/People';
+import { Config } from '../components/user/Config';
 
 
 
@@ -30,6 +31,7 @@ export const Routing = () => {
               <Route path="feed" element={<Feed />} />
               <Route path="logout" element={<Logout/>} />
               <Route path='gente' element={<People/>} />
+              <Route path='config' element={<Config/>} />
             </Route>
 
             <Route path="*" element={<Error404/>} />

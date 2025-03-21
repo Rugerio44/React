@@ -46,17 +46,18 @@ export const Nav = () => {
           </a>
         </li>
         <li className="list-end__item">
-          <a href="#" className="list-end__link">
+          <NavLink to='/social/config' className="list-end__link">
             <span className="list-end__name">Ajustes</span>
             <i className="fa-solid fa-gear"></i>
-          </a>
+          </NavLink>
         </li>
         <li className="list-end__item">
+          {/* Enlace de navegación para cerrar sesión */}
           <NavLink to="logout" className="list-end__link">
             <span className="list-end__name">Cerrar Sesión</span>
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
           </NavLink>
-        </li>
+        </li> 
       </ul>
     </nav>
   );
