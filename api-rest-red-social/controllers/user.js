@@ -184,7 +184,6 @@ const list = async (req, res) => {
       .limit(itemsPerPage)
       .select("-password -email -role -__v");
 
-
     if (!users || users.length === 0) {
       return res.status(404).send({
         status: "error",
@@ -194,7 +193,8 @@ const list = async (req, res) => {
 
     const total = await User.countDocuments();
 
-    const followInfo = await followUserIds.followThisUser(req.user.id, id);
+    const id = req.user.id; // Define the id variable
+    const followInfo = await followUserIds.followThisUser(id, id);
 
     return res.status(200).send({
       status: "success",
