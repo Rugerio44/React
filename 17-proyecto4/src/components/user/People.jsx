@@ -7,12 +7,17 @@ export const People = () => {
 
   const [users, setUsers] = useState([]); 
   const [page, setPage] = useState(1);
+  const [hasMoreUsers, setHasMoreUsers] = useState(true);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => { 
     getUsers(page);
   },[]);
 
   const getUsers = async (page) => {
+
+    setLoading(true);
+
     //Peticion para sacar los usuarios 
     const request = await fetch(Global.url + "user/list/" + page, {
       method: "GET",
@@ -26,13 +31,16 @@ export const People = () => {
 
     //Crear un estado para poder listar 
     if (data.status === "success") {
-      setUsers(prevUsers => [...prevUsers, ...data.users]);
+      setUsers(prevUsers => [...prevUsers, ...data.users]); 
+      if (users.length >= (data.total - data.users.length)) {
+        setHasMoreUsers(false);
+      }
+      
+    } else {
+      setHasMoreUsers(false);
     }
-    else {
-      console.log(data.message);
-    }    
+    setLoading(false);    
   };
-
   //Next page 
   const nextPage = async () => {
     const newPage = page + 1;
@@ -47,6 +55,7 @@ export const People = () => {
       </header>
 
       <div className="content__posts">
+        {loading? <p>Cargando...</p> : ''}
         {users.map(user => {
          return (
            <article className="posts__post" key={user._id}>
@@ -85,11 +94,15 @@ export const People = () => {
          )})}
       </div>
 
-      <div className="content__container-btn">
-        <button className="content__btn-more-post" onClick={nextPage}>
-          Ver mas personas
-        </button>
-      </div>
+      {hasMoreUsers && (
+        <div className="content__container-btn">
+          <button className="content__btn-more-post" onClick={nextPage}>
+            Ver mas personas
+          </button>
+        </div>
+        )}
+      
+       
     </>
   );
 };
