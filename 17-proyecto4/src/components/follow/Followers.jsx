@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Global } from "../../helpers/Global";
 import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
-import { UserList } from "./UserList";
+import { UserList } from "../user/UserList";
 
-export const People = () => {
+export const Followers = () => {
 
   const { auth } = useAuth();
   const [users, setUsers] = useState([]); 
