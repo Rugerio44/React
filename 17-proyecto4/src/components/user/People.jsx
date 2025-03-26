@@ -46,6 +46,7 @@ export const People = () => {
     const newPage = page + 1;
     setPage(newPage);
     getUsers(newPage);
+    
   };
 
   return (
