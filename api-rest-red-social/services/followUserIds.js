@@ -1,36 +1,40 @@
 const Follow = require('../models/follow');
 
 const followUserIds = async (identityUserId) => {
-  try {
-    let following = await Follow.find({ 'user': identityUserId })
-      .select({ '_id': 0, '__v': 0, user: 0, createdAt: 0 })
-      .exec();
+    try{
+        let following = await Follow.find({'user': identityUserId})
+                                .select({'_id': 0, '__v': 0, user: 0, createdAt: 0})
+                                .exec();
+        
 
-    let followers = await Follow.find({ 'followed': identityUserId })
-      .select({ '_id': 0, '__v': 0, followed: 0, createdAt: 0 })
-      .exec();
+        let followers = await Follow.find({'followed': identityUserId})
+                                .select({ '_id': 0, '__v': 0, followed: 0, createdAt: 0 })
+                                .exec();;
+        
 
-    let following_clean = [];
-    following.forEach((follow) => {
-      following_clean.push(follow.followed);
-    });
+        let following_clean = [];
 
-    let followers_clean = [];
-    followers.forEach((follow) => {
-      followers_clean.push(follow.user);
-    });
+        following.forEach((follow) => {
+            following_clean.push(follow.followed);
+        }); 
 
-    console.log("following_clean:", following_clean); // Add this line
-    console.log("followers_clean:", followers_clean); // Add this line
+        let followers_clean = [];
 
-    return {
-      following: following_clean,
-      followers: followers_clean,
-    };
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    throw new Error("Error al obtener la información de seguimiento");
-  }
+        followers.forEach((follow) => {
+          followers_clean.push(follow.user); // aquí es el cambio
+        });
+
+       
+
+        return {
+            following: following_clean,
+            followers: followers_clean,
+        };
+   }
+    catch (error) {
+      console.error(`Error: ${error.message}`);
+      throw new Error("Error al obtener la información de seguimiento");
+    }
 };
 
 const followThisUser = async (identityUserId, profileUserId) => {
