@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Global } from "../../helpers/Global";
 import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
-import { UserList } from "./UserList";
+import { UserList } from "../user/UserList";
+import { useParams } from "react-router-dom";
 
-export const People = () => {
+export const Following = () => {
 
   const { auth } = useAuth();
   const [users, setUsers] = useState([]); 
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true); 
+
+  const params = useParams();
 
   useEffect(() => {  
     getUsers(page);
@@ -19,8 +22,10 @@ export const People = () => {
   const getUsers = async (page) => {
     setLoading(true);
 
+    const userId = params.userId;
+
     //Peticion para sacar los usuarios 
-    const request = await fetch(Global.url + "user/list/" + page, {
+    const request = await fetch(Global.url + "follow/following/" + userId + "/" + page, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -43,13 +48,13 @@ export const People = () => {
 
     //Crear un estado para poder listar 
     if (data.status === "success" && followData.status === "success") {
-      const followingIds = followData.follows.map(follow => follow.followed._id);
-      const updatedUsers = data.users.map(user => ({
+      const followingIds = followData.follows ? followData.follows.map(follow => follow.followed._id) : [];
+      const updatedUsers = data.follows ? data.follows.map(user => ({
         ...user,
         following: followingIds.includes(user._id)
-      }));
+      })) : [];
       setUsers(prevUsers => [...prevUsers, ...updatedUsers]); 
-      if (users.length >= (data.total - data.users.length)) {
+      if (users.length >= (data.total - (data.follows ? data.follows.length : 0))) {
         setHasMoreUsers(false);
       }
       
@@ -118,7 +123,7 @@ export const People = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Gente</h1>
+        <h1 className="content__title">Usuarios que Sigue "Nombre Usuario" </h1>
       </header>
 
       <UserList
