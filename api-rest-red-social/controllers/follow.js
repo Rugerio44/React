@@ -108,17 +108,18 @@ const pruebaFollow = (req, res) => {
       const total = await Follow.countDocuments({ user: userId });
 
       let followUserIds = await followService.followUserIds(req.user.id);
+      console.log("followUserIds in following:", followUserIds); // Add this line
 
       return res.status(200).send({
         status: "success",
         message: "Listado de usuarios que estoy siguiendo " + req.user.name,
+        user: req.user,
         total: total,
         pages: Math.ceil(total / itemsPerPage),
-        page : page,
-        user_following: followUserIds,
+        page: page,
+        user_following: followUserIds.following,
         follows: follows,
-        user_follow_me: followUserIds.followers,
-        
+        user_follow_me: followUserIds.followers, // Ensure this is correctly set
       });
     } catch (error) {
       return res.status(500).send({
@@ -160,17 +161,17 @@ const pruebaFollow = (req, res) => {
       const total = await Follow.countDocuments({ followed: userId });
 
       let followUserIds = await followService.followUserIds(req.user.id);
+      console.log("followUserIds in followers:", followUserIds); // Add this line
 
       return res.status(200).send({
         status: "success",
         message: "Listado de usuarios que me siguen " + req.user.name,
         total: total,
         pages: Math.ceil(total / itemsPerPage),
-        page : page,
+        page: page,
         follows: follows,
-        user_follow_me: followUserIds.followers,
+        user_follow_me: followUserIds.followers, // Ensure this is correctly set
         user_following: followUserIds.following,
-        
       });
     } catch (error) {
       return res.status(500).send({
