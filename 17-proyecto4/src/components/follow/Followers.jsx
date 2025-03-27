@@ -13,7 +13,7 @@ export const Followers = () => {
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {  
-    getUsers(page);
+    getUsers(page); 
   },[]);
 
   const getUsers = async (page) => {
