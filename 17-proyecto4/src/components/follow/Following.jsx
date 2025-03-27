@@ -4,126 +4,104 @@ import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
 import { useParams } from "react-router-dom";
- 
+
 export const Following = () => {
 
   const { auth } = useAuth();
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
-  const [loading, setLoading] = useState(true); 
-
+  const [loading, setLoading] = useState(true);
+  const [following, setFollowing] = useState([]); 
   const params = useParams();
+  console.log("Params UserID:", params.userId);
 
-  useEffect(() => {  
-    getUsers(page);
-  },[]);
+  useEffect(() => {
+    getUsers(1);
+  }, []);
 
   const getUsers = async (page) => {
     setLoading(true);
 
     const userId = params.userId;
+    console.log("UserID:", userId);
+    
+    
 
-    //Peticion para sacar los usuarios 
+    //Peticion para sacar los usuarios
     const request = await fetch(Global.url + "follow/following/" + userId + "/" + page, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token")
+      },
+
     });
 
     const data = await request.json();
 
-    //Peticion para sacar los usuarios que sigo
-    const followRequest = await fetch(Global.url + "follow/following", {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
+    if (data.follows && data.status === "success") {
+      let newUsers = data.follows;
+
+      if (users.length >= 1) {
+        newUsers = [...users, ...data.follows];
       }
-    });
 
-    const followData = await followRequest.json();
+      setUsers(newUsers);
+      setFollowing(data.Usersfollowing);
+      setLoading(false);
 
-    //Crear un estado para poder listar 
-    if (data.status === "success" && followData.status === "success") {
-      const followingIds = followData.follows ? followData.follows.map(follow => follow.followed._id) : [];
-      const updatedUsers = data.follows ? data.follows.map(user => ({
-        ...user,
-        following: followingIds.includes(user._id)
-      })) : [];
-      setUsers(prevUsers => [...prevUsers, ...updatedUsers]); 
-      if (users.length >= (data.total - (data.follows ? data.follows.length : 0))) {
+      if (users.length >= (data.total - data.follows.length  )) {
         setHasMoreUsers(false);
       }
-      
-    } else {
-      setHasMoreUsers(false);
-    }
-    setLoading(false);    
+    } 
   };
 
-  
-
-  const followUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/save", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        },
-        body: JSON.stringify({ followed: userId })
-      });
-
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: true } : user));
-        
-      } else {
-        console.error("Failed to follow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error following user:", error);
-    }
+  const nextPage = () => {
+    const next = page + 1;
+    setPage(next);
+    getUsers(next);
+    console.log(following);
+    
   };
 
-  const unfollowUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/unfollow/" + userId, {
-        method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
-      });
+  const follow = async (userId) => {
 
-      const data = await request.json();
+    const request = await fetch(Global.url + "follow/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ followed: userId }),
+    });
+    const data = await request.json();
 
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: false } : user));
-        
-      } else {
-        console.error("Failed to unfollow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error unfollowing user:", error);
+    if (data.status === "success") {
+      setFollowing([...following, userId]);
     }
+
   };
 
-  //Next page 
-  const nextPage = async () => {
-    const newPage = page + 1;
-    setPage(newPage);
-    getUsers(newPage);
+  const unfollow = async (userId) => {
+    const request = await fetch(Global.url + "follow/unfollow/" + userId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    const data = await request.json();
+    if (data.status == "success") {
+      let filterFollowings = following.filter(followingUserId => userId !== followingUserId);
+      setFollowing(filterFollowings);
+    }
   };
 
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Usuarios que Sigue "Nombre Usuario" </h1>
+        <h1 className="content__title">Usuarios que Sigues </h1>
       </header>
 
       <UserList
@@ -131,9 +109,10 @@ export const Following = () => {
         loading={loading}
         hasMoreUsers={hasMoreUsers}
         auth={auth}
-        followUser={followUser}
-        unfollowUser={unfollowUser}
+        follow={follow}
+        unfollow={unfollow}
         nextPage={nextPage}
+        following={following} 
       />
     </>
   );
