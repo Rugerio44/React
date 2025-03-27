@@ -12,7 +12,7 @@ export const Following = () => {
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [following, setFollowing] = useState([]); 
+  const [following, setFollowing] = useState([]); // Ensure it's initialized as an empty array
   const params = useParams();
   console.log("Params UserID:", params.userId);
 
@@ -61,7 +61,7 @@ export const Following = () => {
     const next = page + 1;
     setPage(next);
     getUsers(next);
-    console.log(following);
+    
     
   };
 
@@ -112,7 +112,7 @@ export const Following = () => {
         follow={follow}
         unfollow={unfollow}
         nextPage={nextPage}
-        following={following} 
+        following={following} // Ensure it's passed correctly
       />
     </>
   );
