@@ -193,8 +193,7 @@ const list = async (req, res) => {
 
     const total = await User.countDocuments();
 
-    const id = req.user.id; // Define the id variable
-    const followInfo = await followUserIds.followThisUser(id, id);
+    const followInfo = await followUserIds.followUserIds(req.user.id);
 
     return res.status(200).send({
       status: "success",

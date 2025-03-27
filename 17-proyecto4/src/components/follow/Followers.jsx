@@ -51,61 +51,12 @@ export const Followers = () => {
       setUsers(prevUsers => [...prevUsers, ...updatedUsers]); 
       if (users.length >= (data.total - data.users.length)) {
         setHasMoreUsers(false);
-      }
+      } 
       
     } else {
       setHasMoreUsers(false);
     }
     setLoading(false);    
-  };
-
-  
-
-  const followUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/save", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        },
-        body: JSON.stringify({ followed: userId })
-      });
-
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: true } : user));
-        
-      } else {
-        console.error("Failed to follow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error following user:", error);
-    }
-  };
-
-  const unfollowUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/unfollow/" + userId, {
-        method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
-      });
-
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: false } : user));
-        
-      } else {
-        console.error("Failed to unfollow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error unfollowing user:", error);
-    }
   };
 
   //Next page 
