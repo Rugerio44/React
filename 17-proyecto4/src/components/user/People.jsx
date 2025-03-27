@@ -5,114 +5,62 @@ import useAuth from "../../hooks/useAuth";
 import { UserList } from "./UserList";
 
 export const People = () => {
-
   const { auth } = useAuth();
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [following, setFollowing] = useState([]); // Initialize following state
 
-  useEffect(() => {  
-    getUsers(page);
-  },[]);
+  useEffect(() => {
+    getUsers(1);
+  }, []);
 
   const getUsers = async (page) => {
     setLoading(true);
 
-    //Peticion para sacar los usuarios 
+    //Peticion para sacar los usuarios
     const request = await fetch(Global.url + "user/list/" + page, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
     });
 
     const data = await request.json();
 
-    //Peticion para sacar los usuarios que sigo
-    const followRequest = await fetch(Global.url + "follow/following", {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
+    if (data.users && data.status === "success") {
+      let newUsers = data.users;
+
+      if (users.length >= 1) {
+        newUsers = [...users, ...data.users];
       }
-    });
 
-    const followData = await followRequest.json();
+      setUsers(newUsers);
+      setFollowing(data.Usersfollowing);
+      setLoading(false);
 
-    //Crear un estado para poder listar 
-    if (data.status === "success" && followData.status === "success") {
-      const followingIds = followData.follows.map(follow => follow.followed._id);
-      const updatedUsers = data.users.map(user => ({
-        ...user,
-        following: followingIds.includes(user._id)
-      }));
-      setUsers(prevUsers => [...prevUsers, ...updatedUsers]); 
-      if (users.length >= (data.total - data.users.length)) {
+      if (users.length >= (data.total - data.users.length  )) {
         setHasMoreUsers(false);
       }
-      
-    } else {
-      setHasMoreUsers(false);
-    }
-    setLoading(false);    
-  };
-
-  
-
-  const followUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/save", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        },
-        body: JSON.stringify({ followed: userId })
-      });
-
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: true } : user));
-        
-      } else {
-        console.error("Failed to follow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error following user:", error);
     }
   };
 
-  const unfollowUser = async (userId) => {
-    try {
-      const request = await fetch(Global.url + "follow/unfollow/" + userId, {
-        method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        }
-      });
-
-      const data = await request.json();
-
-      if (data.status === "success") {
-        setUsers(users.map(user => user._id === userId ? { ...user, following: false } : user));
-        
-      } else {
-        console.error("Failed to unfollow user:", data.message);
-      }
-    } catch (error) {
-      console.error("Error unfollowing user:", error);
-    }
+  const nextPage = () => {
+    const next = page + 1;
+    setPage(next);
+    getUsers(next);
+    console.log(following);
+    
   };
 
-  //Next page 
-  const nextPage = async () => {
-    const newPage = page + 1;
-    setPage(newPage);
-    getUsers(newPage);
+  const follow = (userId) => {
+    setFollowing([...following, userId]);
+  };
+
+  const unfollow = (userId) => {
+    setFollowing(following.filter((id) => id !== userId));
   };
 
   return (
@@ -121,15 +69,78 @@ export const People = () => {
         <h1 className="content__title">Gente</h1>
       </header>
 
-      <UserList
-        users={users}
-        loading={loading}
-        hasMoreUsers={hasMoreUsers}
-        auth={auth}
-        followUser={followUser}
-        unfollowUser={unfollowUser}
-        nextPage={nextPage}
-      />
+      <div className="content__posts">
+        {users.map((user) => {
+          return (
+            <article className="posts__post" key={user._id}>
+              <div className="post__container">
+                <div className="post__image-user">
+                  <a href="#" className="post__image-link">
+                    {user.image !== "default.png" && (
+                      <img
+                        src={Global.url + "user/avatar/" + user.image}
+                        className="post__user-image"
+                        alt="Foto de perfil"
+                      />
+                    )}
+                    {user.image === "default.png" && (
+                      <img
+                        src={avatar}
+                        className="post__user-image"
+                        alt="Foto de perfil"
+                      />
+                    )}
+                  </a>
+                </div>
+
+                <div className="post__body">
+                  <div className="post__user-info">
+                    <a href="#" className="user-info__name">
+                      {user.name} {user.lastName}
+                    </a>
+                    <span className="user-info__divider"> | </span>
+                    <a href="#" className="user-info__create-date">
+                      {user.create_at}
+                    </a>
+                  </div>
+
+                  <h4 className="post__content">{user.bio}</h4>
+                </div>
+              </div>
+              <div className="post__buttons">
+
+                    {following.includes(user._id) &&
+                      <a
+                        href="#"
+                        className="post__button"
+                        onClick={() => follow(user._id)}
+                      >
+                        <i className="fa-solid fa-user-minus"></i>
+                      </a>
+                    }
+                    {!following.includes(user._id) &&
+                      <a
+                        href="#"
+                        className="post__button--add"
+                        onClick={() => unfollow(user._id)}
+                      >
+                        <i className="fa-solid fa-user-plus"></i>
+                      </a>
+                    }
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      {loading ? <p>Cargando...</p> : ""}
+
+      {hasMoreUsers && (
+        <div className="content__container-btn">
+          <button className="content__btn-more-post" onClick={nextPage}>
+            Ver mas personas
+          </button>
+        </div>
+      )}
     </>
   );
 };
