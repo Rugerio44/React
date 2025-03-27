@@ -4,7 +4,7 @@ import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
 import { useParams } from "react-router-dom";
-
+ 
 export const Following = () => {
 
   const { auth } = useAuth();
