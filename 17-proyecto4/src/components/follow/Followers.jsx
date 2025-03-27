@@ -5,65 +5,87 @@ import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
 
 export const Followers = () => {
-
   const { auth } = useAuth();
-  const [users, setUsers] = useState([]); 
+  const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [following, setFollowing] = useState([]); // Initialize following state
 
-  useEffect(() => {  
-    getUsers(page); 
-  },[]);
+  useEffect(() => {
+    getUsers(1);
+  }, []);
 
   const getUsers = async (page) => {
     setLoading(true);
 
-    //Peticion para sacar los usuarios 
-    const request = await fetch(Global.url + "user/list/" + page, {
+    //Peticion para sacar los usuarios
+    const request = await fetch(Global.url + "follow/followed/" + page, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
     });
 
     const data = await request.json();
 
-    //Peticion para sacar los usuarios que sigo
-    const followRequest = await fetch(Global.url + "follow/following", {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
+    if (data.users && data.status === "success") {
+      let newUsers = data.users;
+
+      if (users.length >= 1) {
+        newUsers = [...users, ...data.users];
       }
-    });
 
-    const followData = await followRequest.json();
+      setUsers(newUsers);
+      setFollowing(data.Usersfollowing);
+      setLoading(false);
 
-    //Crear un estado para poder listar 
-    if (data.status === "success" && followData.status === "success") {
-      const followingIds = followData.follows.map(follow => follow.followed._id);
-      const updatedUsers = data.users.map(user => ({
-        ...user,
-        following: followingIds.includes(user._id)
-      }));
-      setUsers(prevUsers => [...prevUsers, ...updatedUsers]); 
-      if (users.length >= (data.total - data.users.length)) {
+      if (users.length >= (data.total - data.users.length  )) {
         setHasMoreUsers(false);
-      } 
-      
-    } else {
-      setHasMoreUsers(false);
+      }
     }
-    setLoading(false);    
   };
 
-  //Next page 
-  const nextPage = async () => {
-    const newPage = page + 1;
-    setPage(newPage);
-    getUsers(newPage);
+  const nextPage = () => {
+    const next = page + 1;
+    setPage(next);
+    getUsers(next);
+    console.log(following);
+    
+  };
+
+  const follow = async (userId) => {
+
+    const request = await fetch(Global.url + "follow/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ followed: userId }),
+    });
+    const data = await request.json();
+
+    if (data.status === "success") {
+      setFollowing([...following, userId]);
+    }
+
+  };
+
+  const unfollow = async (userId) => {
+    const request = await fetch(Global.url + "follow/unfollow/" + userId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    const data = await request.json();
+    if (data.status == "success") {
+      let filterFollowings = following.filter(followingUserId => userId !== followingUserId);
+      setFollowing(filterFollowings);
+    }
   };
 
   return (
@@ -77,9 +99,10 @@ export const Followers = () => {
         loading={loading}
         hasMoreUsers={hasMoreUsers}
         auth={auth}
-        followUser={followUser}
-        unfollowUser={unfollowUser}
+        follow={follow}
+        unfollow={unfollow}
         nextPage={nextPage}
+        following={following} // Pass following as a prop
       />
     </>
   );

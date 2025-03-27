@@ -24,7 +24,7 @@ export const People = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        "Authorization": localStorage.getItem("token"),
       },
     });
 
@@ -55,12 +55,37 @@ export const People = () => {
     
   };
 
-  const follow = (userId) => {
-    setFollowing([...following, userId]);
+  const follow = async (userId) => {
+
+    const request = await fetch(Global.url + "follow/save", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ followed: userId }),
+    });
+    const data = await request.json();
+
+    if (data.status === "success") {
+      setFollowing([...following, userId]);
+    }
+
   };
 
-  const unfollow = (userId) => {
-    setFollowing(following.filter((id) => id !== userId));
+  const unfollow = async (userId) => {
+    const request = await fetch(Global.url + "follow/unfollow/" + userId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    const data = await request.json();
+    if (data.status == "success") {
+      let filterFollowings = following.filter(followingUserId => userId !== followingUserId);
+      setFollowing(filterFollowings);
+    }
   };
 
   return (
@@ -69,78 +94,16 @@ export const People = () => {
         <h1 className="content__title">Gente</h1>
       </header>
 
-      <div className="content__posts">
-        {users.map((user) => {
-          return (
-            <article className="posts__post" key={user._id}>
-              <div className="post__container">
-                <div className="post__image-user">
-                  <a href="#" className="post__image-link">
-                    {user.image !== "default.png" && (
-                      <img
-                        src={Global.url + "user/avatar/" + user.image}
-                        className="post__user-image"
-                        alt="Foto de perfil"
-                      />
-                    )}
-                    {user.image === "default.png" && (
-                      <img
-                        src={avatar}
-                        className="post__user-image"
-                        alt="Foto de perfil"
-                      />
-                    )}
-                  </a>
-                </div>
-
-                <div className="post__body">
-                  <div className="post__user-info">
-                    <a href="#" className="user-info__name">
-                      {user.name} {user.lastName}
-                    </a>
-                    <span className="user-info__divider"> | </span>
-                    <a href="#" className="user-info__create-date">
-                      {user.create_at}
-                    </a>
-                  </div>
-
-                  <h4 className="post__content">{user.bio}</h4>
-                </div>
-              </div>
-              <div className="post__buttons">
-
-                    {following.includes(user._id) &&
-                      <a
-                        href="#"
-                        className="post__button"
-                        onClick={() => follow(user._id)}
-                      >
-                        <i className="fa-solid fa-user-minus"></i>
-                      </a>
-                    }
-                    {!following.includes(user._id) &&
-                      <a
-                        href="#"
-                        className="post__button--add"
-                        onClick={() => unfollow(user._id)}
-                      >
-                        <i className="fa-solid fa-user-plus"></i>
-                      </a>
-                    }
-              </div>
-            </article>
-          );
-        })}
-      </div>
-      {loading ? <p>Cargando...</p> : ""}
-
-      {hasMoreUsers && (
-        <div className="content__container-btn">
-          <button className="content__btn-more-post" onClick={nextPage}>
-            Ver mas personas
-          </button>
-        </div>
-      )}
+      <UserList
+        users={users}
+        loading={loading}
+        hasMoreUsers={hasMoreUsers}
+        auth={auth}
+        follow={follow}
+        unfollow={unfollow}
+        nextPage={nextPage}
+        following={following} // Pass following as a prop
+      />
     </>
   );
 };

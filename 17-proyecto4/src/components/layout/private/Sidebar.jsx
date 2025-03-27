@@ -9,6 +9,7 @@ export const Sidebar = () => {
     const {auth, counters} = useAuth();
 
     
+    console.log("Auth ID:", auth._id); // Depuración: Verificar el valor de auth._id
     
 
   return ( 
@@ -38,16 +39,16 @@ export const Sidebar = () => {
                     <div className="profile-info__stats">
 
                         <div className="stats__following">
-                            <Link to={"siguiendo/"+auth._id} className="following__link">
+                            <Link to={"/siguiendo/" + auth._id} className="following__link">
                                 <span className="following__title">Siguiendo</span>
                                 <span className="following__number"> {counters.following}</span>
                             </Link>
                         </div>
                         <div className="stats__following">
-                            <a href="#" className="following__link">
+                            <Link to={"seguidores/"+auth._id} className="following__link">
                                 <span className="following__title">Seguidores</span>
                                 <span className="following__number">{counters.followed}</span>
-                            </a>
+                            </Link>
                         </div>
 
                         <div className="stats__following">
