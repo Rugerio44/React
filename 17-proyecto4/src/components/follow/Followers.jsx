@@ -3,6 +3,7 @@ import { Global } from "../../helpers/Global";
 import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
+import { useParams } from "react-router-dom";
 
 export const Followers = () => {
   const { auth } = useAuth();
@@ -11,6 +12,7 @@ export const Followers = () => {
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true);
   const [following, setFollowing] = useState([]); // Initialize following state
+  const {userId} = useParams(); 
 
   useEffect(() => {
     getUsers(1);
@@ -19,16 +21,27 @@ export const Followers = () => {
   const getUsers = async (page) => {
     setLoading(true);
 
+    
+    
     //Peticion para sacar los usuarios
-    const request = await fetch(Global.url + "follow/followed/" + page, {
+    const request = await fetch(Global.url + "follow/followers/"+ userId + "/" + page, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+        "Authorization": localStorage.getItem("token"),
       },
     });
 
     const data = await request.json();
+
+    let clearUsers = [];
+    //Recorrer y limpiar follows
+    data.follows.forEach(follow => {
+      clearUsers = [...clearUsers, follow.user]
+    });
+    data.users = clearUsers;
+    console.log(data.users);
+    
 
     if (data.users && data.status === "success") {
       let newUsers = data.users;
@@ -79,7 +92,7 @@ export const Followers = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
-      },
+      }, 
     });
     const data = await request.json();
     if (data.status == "success") {
@@ -91,7 +104,7 @@ export const Followers = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Gente</h1>
+        <h1 className="content__title">Seguidores</h1>
       </header>
 
       <UserList
@@ -102,8 +115,8 @@ export const Followers = () => {
         follow={follow}
         unfollow={unfollow}
         nextPage={nextPage}
-        following={following} // Pass following as a prop
+        following={following}
       />
     </>
   );
-};
+}; 
