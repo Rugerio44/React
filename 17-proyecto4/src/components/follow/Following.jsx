@@ -3,6 +3,7 @@ import { Global } from "../../helpers/Global";
 import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
+import { getProfile } from "../../helpers/getProfile";
 
 export const Following = () => {
   const { auth } = useAuth();
@@ -10,10 +11,12 @@ export const Following = () => {
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [following, setFollowing] = useState([]); // Initialize following state
+  const [following, setFollowing] = useState([]); 
+  const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
     getUsers(1);
+    getProfile(auth, setUserProfile); 
   }, []);
 
   const getUsers = async (page) => {
@@ -94,7 +97,7 @@ export const Following = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Mis seguidores </h1>
+        <h1 className="content__title">Personas que sigue {userProfile.name}  </h1>
       </header>
 
       <UserList
@@ -106,7 +109,8 @@ export const Following = () => {
         unfollow={unfollow}
         nextPage={nextPage}
         following={following} // Pass following as a prop
+        showButtons={true} // Show buttons
       />
     </>
   );
-};  
+};
