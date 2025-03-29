@@ -12,4 +12,5 @@ export const getProfile = async (auth, setUserProfile) => {
   if (data.status === "success") {
     setUserProfile(data.user);
   }
+  
 };
