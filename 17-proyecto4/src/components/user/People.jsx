@@ -103,6 +103,7 @@ export const People = () => {
         unfollow={unfollow}
         nextPage={nextPage}
         following={following} // Pass following as a prop
+        showButtons={true} // Show buttons
       />
     </>
   );

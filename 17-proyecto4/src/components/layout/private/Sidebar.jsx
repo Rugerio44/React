@@ -1,16 +1,76 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useAuth from '../../../hooks/useAuth'
 import avatar from '/src/assets/img/user.png'
 import { Global } from '../../../helpers/Global';
 import { Link } from 'react-router-dom';
+import {useForm} from '../../../hooks/useForm';
+import { NavLink } from 'react-router-dom';
+
+
 
 export const Sidebar = () => {
 
     const {auth, counters} = useAuth();
+    const {form, changed} = useForm({});
+    const [stored, setStored] = useState();
+    const token = localStorage.getItem('token');
 
     
-    
-    
+    const savePublication = async (e) => {
+        e.preventDefault();
+        
+        //Recoger datos del form
+        let newPublication = form;
+        newPublication.user = auth._id;
+
+        //Hacer request para guardar en BD
+        const request = await fetch(Global.url + 'publication/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            body: JSON.stringify(newPublication)
+        });
+
+        const data = await request.json();
+        
+
+        //Mostrar mensaje de exito o error
+        if(data.status ==='success') {
+            setStored("saved");
+        } else {
+            setStored("error");
+        }
+
+        //Subir imagen 
+        const fileInput = document.querySelector('#file');
+        if(data.status ==='success' && fileInput.files[0]) { 
+            const formData = new FormData();
+            formData.append('file0', fileInput.files[0]);
+
+            const uploadRequest = await fetch(Global.url + 'publication/upload/' + data.publicationStored._id, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': token
+                }
+            });
+            
+            const uploadData = await uploadRequest.json();
+            if(uploadData.status === 'success') {
+                setStored("saved");
+            } else {
+                setStored("error");
+            }
+
+            if(uploadData.status === 'success' && data.status === 'success') {
+                const myForm = document.querySelector('#publication-form');
+                myForm.reset();
+                setStored('saved');
+            }
+        } 
+    }
 
   return ( 
     <>
@@ -31,10 +91,10 @@ export const Sidebar = () => {
                         </div>
 
                         <div className="general-info__container-names">
-                            <a href="#" className="container-names__name">{auth.name},{auth.lastname} </a>
+                            <NavLink to={"/social/perfil/"+auth._id } className="container-names__name">{auth.name},{auth.lastname} </NavLink> 
                             <p className="container-names__nickname">{auth.nickname}</p>
                         </div>
-                    </div>
+                    </div> 
 
                     <div className="profile-info__stats">
 
@@ -52,10 +112,10 @@ export const Sidebar = () => {
                         </div>
 
                         <div className="stats__following">
-                            <a href="#" className="following__link">
+                            <NavLink to={"/social/perfil/"+auth._id } className="following__link">
                                 <span className="following__title">Publicaciones</span>
                                 <span className="following__number">{counters.publications}</span>
-                            </a>
+                            </NavLink>
                         </div>
 
                     </div>
@@ -63,19 +123,23 @@ export const Sidebar = () => {
 
                 <div className="aside__container-form">
 
-                    <form className="container-form__form-post">
+                {stored == 'saved' ? <strong className='alert alert-success'>Publicado correctamente!!</strong> : ''}
+                {stored == 'error' ? <strong className='alert alert-danger'>Publicación no publicada</strong> : ''}  
+
+
+                    <form id='publication-form' className="container-form__form-post" onSubmit={savePublication}>
 
                         <div className="form-post__inputs">
-                            <label htmlFor="post" className="form-post__label">¿Que estas pesando hoy?</label>
-                            <textarea name="post" className="form-post__textarea"></textarea>
+                            <label htmlFor="text" className="form-post__label">¿Que estas pesando hoy?</label>
+                            <textarea name="title" className="form-post__textarea" onChange={changed}/>
                         </div>
 
                         <div className="form-post__inputs">
-                            <label htmlFor="image" className="form-post__label">Sube tu foto</label>
-                            <input type="file" name="image" className="form-post__image"/>
+                            <label htmlFor="file" className="form-post__label">Sube tu foto</label>
+                            <input type="file" name="file0" id='file' className="form-post__image"/>
                         </div>
 
-                        <input type="submit" value="Enviar" className="form-post__btn-submit" disabled/>
+                        <input type="submit" value="Enviar" className="form-post__btn-submit"/>
 
                     </form>
 

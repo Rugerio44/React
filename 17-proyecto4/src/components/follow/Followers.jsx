@@ -4,6 +4,7 @@ import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
 import { useParams } from "react-router-dom";
+import { getProfile } from "../../helpers/getProfile";
 
 export const Followers = () => {
   const { auth } = useAuth();
@@ -11,11 +12,13 @@ export const Followers = () => {
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [following, setFollowing] = useState([]); // Initialize following state
-  const {userId} = useParams(); 
+  const [following, setFollowing] = useState([]);
+  const [userProfile, setUserProfile] = useState({}); // Add userProfile state
+  const { userId } = useParams();
 
   useEffect(() => {
     getUsers(1);
+    getProfile(auth, setUserProfile); // Use the imported helper function
   }, []);
 
   const getUsers = async (page) => {
@@ -40,7 +43,7 @@ export const Followers = () => {
       clearUsers = [...clearUsers, follow.user]
     });
     data.users = clearUsers;
-    console.log(data.users);
+    
     
 
     if (data.users && data.status === "success") {
@@ -104,7 +107,7 @@ export const Followers = () => {
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Seguidores</h1>
+        <h1 className="content__title">Personas que siguen a {userProfile.name}</h1> {/* Display user name */}
       </header>
 
       <UserList
@@ -116,7 +119,8 @@ export const Followers = () => {
         unfollow={unfollow}
         nextPage={nextPage}
         following={following}
+        showButtons={false} 
       />
     </>
   );
-}; 
+};
