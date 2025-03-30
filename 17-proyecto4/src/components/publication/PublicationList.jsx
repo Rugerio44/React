@@ -4,6 +4,8 @@ import ReactTimeAgo from 'react-time-ago';
 
 export const PublicationList = ({ auth,publications,getPublications, deletePublications, avatar, Global, more, nextPage }) => { 
     
+    
+
     return (
     <>
       {publications.map((publication, index) => (

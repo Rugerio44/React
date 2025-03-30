@@ -10,7 +10,6 @@ export const UserList = ({ users,setUsers, loading, hasMoreUsers, auth, follow, 
     <>
       <div className="content__posts">
         {users.map((user) => {
-          console.log("user.create_at:", user.create_at); // Depuración
           return (
             <article className="posts__post" key={user._id}>
               <div className="post__container">
@@ -39,11 +38,7 @@ export const UserList = ({ users,setUsers, loading, hasMoreUsers, auth, follow, 
                     </Link>
                     <span className="user-info__divider"> | </span>
                     <Link to={`/social/perfil/${user._id}`} className="user-info__create-date">
-                      {user.create_at && !isNaN(new Date(user.create_at / 1000).getTime()) ? (
-                        <ReactTimeAgo date={new Date(user.create_at / 1000)} locale="en-US" />
-                      ) : (
-                        "Fecha no disponible"
-                      )}
+                      <ReactTimeAgo date={new Date(user.create_at)} locale="en-US" />
                     </Link>
                   </div>
 
