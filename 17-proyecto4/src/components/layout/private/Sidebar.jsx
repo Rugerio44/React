@@ -63,13 +63,12 @@ export const Sidebar = () => {
             } else {
                 setStored("error");
             }
-
-            if(uploadData.status === 'success' && data.status === 'success') {
-                const myForm = document.querySelector('#publication-form');
-                myForm.reset();
-                setStored('saved');
-            }
         } 
+        //if(uploadData.status === 'success' && data.status === 'success') {
+            const myForm = document.querySelector('#publication-form');
+            myForm.reset();
+            setStored('saved');
+        //} 
     }
 
   return ( 

@@ -4,7 +4,8 @@ import avatar from '../../assets/img/user.png';
 import { Link, useParams } from 'react-router-dom';
 import { getProfile } from '../../helpers/getProfile';
 import { Global } from '../../helpers/Global';
-
+import { PublicationList } from '../publication/PublicationList';
+ 
 export const Profile = () => {
     const [user, setUser] = useState({});
     const { userId } = useParams(); // Obtener el userId de la URL
@@ -21,7 +22,8 @@ export const Profile = () => {
         getProfile({ _id: userId }, setUser);
         getUser(); // Llamar a la función para obtener el usuario
         checkFollowStatus(); // Verificar si ya sigue al usuario
-        getPublications(); // Obtener las publicaciones del usuario
+        setMore(true);
+        getPublications(1, true); // Obtener las publicaciones del usuario
     }, [userId]); // Escuchar cambios en userId
 
     const getUser = async () => {
@@ -96,7 +98,7 @@ export const Profile = () => {
         }
     };
 
-    const getPublications = async (nextPage = 1) => {
+    const getPublications = async (nextPage = 1, newProfile = false) => {
       const request = await fetch(Global.url + 'publication/user/' + userId +"/"+ nextPage ,
           {
             method: 'GET',
@@ -112,28 +114,50 @@ export const Profile = () => {
 
         let newPublications = data.publications;
 
-        if(publications.length >= 1) {
+        if(!newProfile && publications.length >= 1) {
           newPublications = [...publications, ...data.publications];
         }
 
-        setPublications(newPublications);
+        if(newProfile) {
+          newPublications = data.publications;
+          setMore(true);
+          setPage(1);
+        }
 
-        console.log("data lenght: "+data.publications.length);
-        console.log("data total: "+(data.total- data.publications.length));
+        setPublications(newPublications);
         
-        if (data.publications.length === 0) {
-          console.log("si se pudo");
-          
+        
+        if (!newProfile && publications.length >= (data.total - data.publications.length )) {
           setMore(false);
         }
-      }
 
+        if(data.pages <= 1) { 
+         setMore(false);
+        }
+      }
     };
 
     const nextPage = () => {
       let next = page + 1;
       setPage(next);
       getPublications(next);
+    };
+
+    const deletePublications = async (publicationId) => {
+
+      const request = await fetch(`${Global.url}publication/remove/${publicationId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token')
+        },
+        
+      });
+      
+      const data = await request.json();
+      setPage(1);
+      setMore(true);
+      getPublications(1, true);
     };
 
     return (
@@ -216,65 +240,17 @@ export const Profile = () => {
         </header>
         <aside className="layout__aside"></aside>
         <div className="content__posts">
-          {/* Aquí puedes cargar las publicaciones del usuario */}
-          {publications.map((publication, index) => {
-            return (
-              <article className="posts__post" key={`${publication._id}-${index}`}>
-                <div className="post__container">
-                  <div className="post__image-user">
-                    <Link
-                      to={`/social/perfil/${publication.user._id}`}
-                      className="post__image-link"
-                    >
-                      {publication.user.image !== "default.png" ? (
-                        <img
-                          src={`${Global.url}user/avatar/${publication.user.image}`}
-                          className="post__user-image"
-                          alt="Foto de perfil"
-                        />
-                      ) : (
-                        <img
-                          src={avatar}
-                          className="post__user-image"
-                          alt="Foto de perfil"
-                        />
-                      )}
-                    </Link>
-                  </div>
-
-                  <div className="post__body">
-                    <div className="post__user-info">
-                      <a href="#" className="user-info__name">
-                        {publication.user.name +" "+ publication.user.lastName}
-                      </a>
-                      <span className="user-info__divider"> | </span>
-                      <a href="#" className="user-info__create-date">
-                        {publication.create_at}
-                      </a>
-                    </div>
-
-                    <h4 className="post__content"> {publication.title} </h4>
-                  </div>
-                </div>
-
-                <div className="post__buttons">
-                  <a href="#" className="post__button">
-                    <i className="fa-solid fa-trash-can"></i>
-                  </a>
-                </div>
-              </article>
-            );
-          })};
+          <PublicationList 
+            publications={publications} 
+            deletePublications={deletePublications} 
+            getPublications={getPublications}
+            avatar={avatar} 
+            Global={Global} 
+            auth={auth}
+            more={more} 
+            nextPage={nextPage} 
+          />
         </div>
-
-        {/* Botón para ver más publicaciones */}
-        {more && publications.length > 0 && (
-          <div className="content__container-btn">
-            <button className="content__btn-more-post" onClick={nextPage}>
-              Ver mas personas
-            </button>
-          </div>
-        )} 
       </>
     );
 };

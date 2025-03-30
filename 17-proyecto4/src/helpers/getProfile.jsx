@@ -1,5 +1,6 @@
 import { Global } from "./Global";
 
+
 export const getProfile = async (auth, setUserProfile) => {
   const request = await fetch(Global.url + "user/profile/" + auth._id, {
     method: "GET",
