@@ -256,7 +256,7 @@ const pruebaPublication = (req, res) => {
       console.log("Publicaciones encontradas:", publicatio);
   
       const total = await publications.countDocuments({
-        user: myFollows.followings 
+        user: myFollows.following // Fixed incorrect property
       });
   
       return res.status(200).send({
@@ -289,4 +289,3 @@ const pruebaPublication = (req, res) => {
     media,
     feed
   };
-  

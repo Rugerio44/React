@@ -31,7 +31,7 @@ export const Routing = () => {
             {/* Private Layout */}
             <Route path="/social" element={<PrivateLayout />}>
               <Route index element={<Feed />} />
-              <Route path="feed" element={<Feed />} />
+              <Route path="feed/:userId?" element={<Feed />} />
               <Route path="logout" element={<Logout/>} />
               <Route path='gente' element={<People/>} />
               <Route path='config' element={<Config/>} />
