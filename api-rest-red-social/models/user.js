@@ -12,7 +12,7 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   role: { type: String, default: "role_user" },
   image: { type: String, default: "default.png" },
-  create_at: { type: String, default: Date.now() },
+  create_at: { type: Date, default: Date.now() },
 });
 
 module.exports = model("User", userSchema, "users");
