@@ -3,27 +3,32 @@ import { Global } from "../../helpers/Global";
 import avatar from "../../assets/img/user.png";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "../user/UserList";
+import { useParams } from "react-router-dom";
 import { getProfile } from "../../helpers/getProfile";
 
 export const Following = () => {
+
   const { auth } = useAuth();
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMoreUsers, setHasMoreUsers] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [following, setFollowing] = useState([]); 
-  const [userProfile, setUserProfile] = useState({});
+  const [following, setFollowing] = useState([]);
+  const [userProfile, setUserProfile] = useState({}); // Add userProfile state
+  const { userId } = useParams();
 
   useEffect(() => {
     getUsers(1);
-    getProfile(auth, setUserProfile); 
+    getProfile(auth, setUserProfile); // Use the imported helper function
   }, []);
 
   const getUsers = async (page) => {
     setLoading(true);
 
+    
+    
     //Peticion para sacar los usuarios
-    const request = await fetch(Global.url + "user/list/" + page, {
+    const request = await fetch(Global.url + "follow/following/"+ userId + "/" + page, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -32,22 +37,30 @@ export const Following = () => {
     });
 
     const data = await request.json();
+    
+    
+
+    let clearUsers = [];
+    //Recorrer y limpiar follows
+    data.follows.forEach(follow => {
+      clearUsers = [...clearUsers, follow.followed]
+    });
+    data.users = clearUsers;
 
     if (data.users && data.status === "success") {
-      // Filtrar usuarios que ya sigues
-      const cleanUsers = data.users.filter(user => data.Usersfollowing.includes(user._id));
-
-      let newUsers = cleanUsers;
+      let newUsers = data.users;
 
       if (users.length >= 1) {
-        newUsers = [...users, ...cleanUsers];
+        newUsers = [...users, ...data.users];
       }
+      
+      
 
       setUsers(newUsers);
-      setFollowing(data.Usersfollowing);
+      setFollowing(data.user_following);
       setLoading(false);
 
-      if (users.length >= (data.total - cleanUsers.length)) {
+      if (users.length >= (data.total - data.users.length  )) {
         setHasMoreUsers(false);
       }
     }
@@ -61,43 +74,10 @@ export const Following = () => {
     
   };
 
-  const follow = async (userId) => {
-
-    const request = await fetch(Global.url + "follow/save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-      body: JSON.stringify({ followed: userId }),
-    });
-    const data = await request.json();
-
-    if (data.status === "success") {
-      setFollowing([...following, userId]);
-    }
-
-  };
-
-  const unfollow = async (userId) => {
-    const request = await fetch(Global.url + "follow/unfollow/" + userId, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-    const data = await request.json();
-    if (data.status == "success") {
-      let filterFollowings = following.filter(followingUserId => userId !== followingUserId);
-      setFollowing(filterFollowings);
-    }
-  };
-
   return (
     <>
       <header className="content__header">
-        <h1 className="content__title">Personas que sigue {userProfile.name}  </h1>
+        <h1 className="content__title">Personas que sigue {userProfile.name}</h1> {/* Display user name */}
       </header>
 
       <UserList
@@ -105,11 +85,9 @@ export const Following = () => {
         loading={loading}
         hasMoreUsers={hasMoreUsers}
         auth={auth}
-        follow={follow}
-        unfollow={unfollow}
         nextPage={nextPage}
-        following={following} // Pass following as a prop
-        showButtons={true} // Show buttons
+        following={following}
+        showButtons={false} 
       />
     </>
   );

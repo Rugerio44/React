@@ -10,6 +10,8 @@ export const UserList = ({ users,setUsers, loading, hasMoreUsers, auth, follow, 
     <>
       <div className="content__posts">
         {users.map((user) => {
+          
+          
           return (
             <article className="posts__post" key={user._id}>
               <div className="post__container">
@@ -38,7 +40,11 @@ export const UserList = ({ users,setUsers, loading, hasMoreUsers, auth, follow, 
                     </Link>
                     <span className="user-info__divider"> | </span>
                     <Link to={`/social/perfil/${user._id}`} className="user-info__create-date">
-                      <ReactTimeAgo date={new Date(user.create_at)} locale="en-US" />
+                      {auth.create_at ? (
+                        <ReactTimeAgo date={(auth.create_at)} locale="en-US" />
+                      ) : (
+                        "Fecha no disponible"
+                      )}
                     </Link>
                   </div>
 

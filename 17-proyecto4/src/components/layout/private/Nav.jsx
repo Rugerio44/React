@@ -3,11 +3,16 @@ import avatar from '../../../assets/img/user.png'
 import useAuth from '../../../hooks/useAuth';
 import { NavLink } from 'react-router-dom';
 import { Global } from '../../../helpers/Global';
+import '../../../assets/css/Config.css'; // Import the new CSS file
 
 
 export const Nav = () => {
 
     const {auth} = useAuth();
+    const toggleDarkMode = () => {
+      document.body.classList.toggle('dark-mode');
+    };
+    
 
   return (
     <nav className="navbar__container-lists">
@@ -34,6 +39,20 @@ export const Nav = () => {
       </ul>
 
       <ul className="container-lists__list-end">
+        <li className="list-end__item">
+          <div className="switch-button">
+              <div className="switch-icon"> 
+                <input
+                  type="checkbox"
+                  name="switch-button"
+                  id="switch-label"
+                  className="switch-button__checkbox"
+                  onClick={toggleDarkMode}
+                />
+                <label htmlFor="switch-label" className="switch-button__label"></label>
+              </div> 
+          </div>
+        </li>
         <li className="list-end__item">
           <NavLink to={"/social/perfil/"+auth._id } className="list-end__link-image">
           {auth.image != 'default.png' && <img src={Global.url + 'user/avatar/' + auth.image} className="list-end__img" alt="Foto de perfil"/>}

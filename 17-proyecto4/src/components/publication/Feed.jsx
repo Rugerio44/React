@@ -17,7 +17,7 @@ export const Feed = () => {
       getPublications(1, false);
   }, []); // Add auth._id as a dependency
 
-  const getPublications = async (nextPage = 1,showNews = false) => {
+  const getPublications = async (nextPage =1,showNews = false) => {
 
     if(showNews){
       setPublications([]);
