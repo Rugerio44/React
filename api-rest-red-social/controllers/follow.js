@@ -82,12 +82,10 @@ const pruebaFollow = (req, res) => {
     try {
       // Sacar el id del usuario identificado
       let userId = req.user.id;
-
       // Comprobar si me llega el id por parametro en url
       if (req.params.id) {
         userId = req.params.id;
       }
-
       // Comprobar si me llega la pagina por parametro en url
       let page = 1;
 
@@ -112,11 +110,11 @@ const pruebaFollow = (req, res) => {
       return res.status(200).send({
         status: "success",
         message: "Listado de usuarios que estoy siguiendo " + req.user.name,
+        follows: follows,
         total: total,
         pages: Math.ceil(total / itemsPerPage),
         page : page,
-        user_following: followUserIds,
-        follows: follows,
+        user_following: followUserIds.following,
         user_follow_me: followUserIds.followers,
         
       });

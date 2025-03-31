@@ -127,6 +127,7 @@ body {
     width: 4rem;
     height: 4rem;
     border-radius: 3.2rem;
+    margin: 1rem;
 }
 
 .list-end__link{
@@ -324,6 +325,7 @@ body {
 }
 
 .container-avatar__img{
+    width: 100%;
     height: 100%;
 }
 
@@ -531,3 +533,8 @@ button{
 .imagen__publication:hover {
     transform: scale(1.09); /* Optional: scales the image when hovered */
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+

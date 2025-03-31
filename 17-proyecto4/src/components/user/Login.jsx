@@ -4,11 +4,10 @@ import { Global } from '../../helpers/Global';
 import useAuth from '../../hooks/useAuth';
 
 
+
 export const Login = () => {
 
   const { auth } = useAuth();
-  
-  
 
   const {form, changed} = useForm({});
   const [saved, setSaved] = useState('not_sended');
@@ -83,6 +82,7 @@ export const Login = () => {
           <input type="submit" className="btn btn-success" value='Iniciar Sesión' />
 
         </form>
+        <br />
         <p>No tienes cuenta? <a href="/registro">Regístrate</a></p>
       </div>
     </>

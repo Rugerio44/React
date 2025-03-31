@@ -1,0 +1,73 @@
+:root {
+    --color-green:#F4E06C ;
+    --color-red: #212121 ;
+    --color-button: #fdffff;
+    --color-black: #000;
+}
+
+body.dark-mode {
+  background-color: #212121;
+  color: #ffffff;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+  background-color: #27272E;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+body.dark-mode .btn-dark-mode {
+  background-color: #ffffff;
+  color: #212121;
+  border: 1px solid #ffffff;
+}
+
+body.dark-mode .imagen__publication{
+    background-color: #27272E; /* Optional: adds a background color */
+}
+
+.switch-button {
+    margin-top: 0.5rem;
+    display: inline-block;
+}
+.switch-button .switch-button__checkbox {
+    display: none;
+}
+.switch-button .switch-button__label {
+    background-color: var(--color-red);
+    width: 4rem;
+    height: 2.5rem;
+    border-radius: 3rem;
+    display: inline-block;
+    position: relative;
+}
+.switch-button .switch-button__label:before {
+    transition: .2s;
+    display: block;
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--color-button);
+    content: '';
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 0px 1px var(--color-black);
+}
+.switch-button .switch-button__checkbox:checked + .switch-button__label {
+    background-color: var(--color-green);
+}
+.switch-button .switch-button__checkbox:checked + .switch-button__label:before {
+    transform: translateX(2rem);
+}
+
+.switch-button__title{
+    margin: 1rem;
+}
+.switch-icon{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+body.dark-mode .layout__navbar {
+    background-color: #20487a;
+}
