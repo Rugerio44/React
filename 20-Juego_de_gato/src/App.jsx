@@ -4,7 +4,9 @@ import confetti from 'canvas-confetti';
 
 const TURNS = {
   X: "✖️",
-  O: "⭕"
+  O: "⭕",
+  e: "🙅‍♂️"
+
 }
 
 
@@ -119,11 +121,11 @@ function App() {
               <div className='text'>
                 <h2>
                 {
-                  winner === false ? "Empate 🙅‍♂️" : "Ganó:"
+                  winner === false ? "Empate " : "Ganó:"
                 }
                 </h2>
                 <header className="win">
-                  {winner ? <Square>{winner}</Square> : ""} 
+                  {winner ? <Square>{winner}</Square> : <Square>{TURNS.e}</Square>} 
                 </header>
                 <footer>
                   <button onClick={resetGame}>Empezar de nuevo</button>
