@@ -1,9 +1,10 @@
 import { Children, useState } from 'react'
 import './App.css'
+import confetti from 'canvas-confetti';
 
 const TURNS = {
-  X: "x",
-  O: "o"
+  X: "✖️",
+  O: "⭕"
 }
 
 
@@ -38,20 +39,31 @@ function App() {
   const [board,setBoard] = useState(Array(9).fill(null));
 
   const [turn, setTurn] = useState(TURNS.X)
-  const [winner,serWinner] = useState(null)
+  const [winner,setWinner] = useState(null)
 
   const checkWinner = (boardToCheck) => {
     for (const combo of WINNER_COMBOS){
       const [a,b,c] = combo
-      if (condition) {
-        
+      if (
+        boardToCheck[a] &&
+        boardToCheck[a] === boardToCheck[b] &&
+        boardToCheck[a] === boardToCheck[c]
+      ) {
+        return(boardToCheck[a])
       }
     }
+    return null
+  }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
   }
 
   const updateBoard = (index) => {
 
-    if(board [index]) return
+    if(board [index] || winner) return
 
     const newBoard = [...board]
     newBoard[index] = turn
@@ -59,12 +71,23 @@ function App() {
     
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
+
+    const newWinner = checkWinner(newBoard)
+    if (newWinner) {
+      confetti()
+      setWinner(newWinner)
+    } else if (newBoard.every((square) => square !== null)) {
+      setWinner(false)
+    }
+
+
   }
 
   return (
     <>
       <main className='board'>
         <h1>Juego de Gato</h1>
+        <button onClick={resetGame}>Empezar de nuevo</button>
         <section className='game'>
           {
             board.map((_, index) => {
@@ -89,6 +112,28 @@ function App() {
             {TURNS.O}
           </Square>
         </section>
+
+        {
+          winner !== null && (
+            <section className='winner'>
+              <div className='text'>
+                <h2>
+                {
+                  winner === false ? "Empate 🙅‍♂️" : "Ganó:"
+                }
+                </h2>
+                <header className="win">
+                  {winner ? <Square>{winner}</Square> : ""} 
+                </header>
+                <footer>
+                  <button onClick={resetGame}>Empezar de nuevo</button>
+                </footer>
+              </div>
+            </section>
+          )
+        }
+
+
       </main>
     </>
   );

@@ -83,7 +83,7 @@ body {
 
 .square.is-selected {
   color: #fff;
-  background: #09f;
+  background: #4a3857; 
 }
 
 .winner {
@@ -116,6 +116,9 @@ body {
   border-radius: 10px;
   display: flex;
   gap: 15px;
+  border: 2px solid #eee;
+  padding-bottom: 10px;
+  padding-top: -5px;
 }
 
 .square {
