@@ -1,3 +1,8 @@
+@import "tailwindcss";
+@import 'tw-animate-css';
+
+ 
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,13 +10,14 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #050000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 a {
   font-weight: 500;
@@ -28,11 +34,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(#0000,#392f68 );
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 5rem;
   line-height: 1.1;
+  color: #ffffff;
+  z-index: 10;
 }
 
 button {
@@ -64,5 +73,221 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+
+
+ul {
+  list-style-type: none;
+  display: flex;
+  padding: 7px 0;
+  background-size: 400% 400%;
+  background-image: linear-gradient(-45deg, #201835,#221A39,#744AC1, #221A39);
+  animation: 10s myGradient infinite;
+  border-radius: 40px;
+  box-shadow: 3px 3px 20px #3D2A5F;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+@keyframes myGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  
+  50%{
+    background-position: 100% 50%;
+  }
+  
+  100% {
+    background-position: 0% 50%;
+  }
+}
+li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 45px 45px;
+  font-family: verdana;
+  font-weight: lighter;
+  font-size: 24px;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.navigation {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 2.5%;
+  left: 50%;
+  z-index: 100;
+}
+
+.formas__item {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+.formas__img{
+  max-width: 1200px;
+  display: block;
+}
+
+.formas__items--forma1 {
+  text-align: right;
+  top: -5px;
+  right: 0;
+  animation-name: mostrar_derecha;
+  animation-duration: 1s;
+  width: 398px;
+}
+
+@keyframes mostrar_derecha {
+  0% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+.formas__items--forma2{
+  bottom: -10px;
+  left: -20px;
+  animation-name: mostrar_izquierda;
+  animation-duration: 1s;
+}
+
+@keyframes mostrar_izquierda {
+  0%{
+      transform: translateX(-50%);
+  }
+  
+  100%{
+      transform: translateX(0%);
+  }
+}
+.formas__items--forma3 {
+  top: 0px;
+  left: -62px;
+  animation-name: mostrar_izquierda;
+  animation-duration: 1s;
+} 
+
+@keyframes mostrar_izquierda {
+  0%{
+      transform: translateX(-50%);
+  }
+  
+  100%{
+      transform: translateX(0%);
+  }
+}
+.formas__items--forma4{
+  bottom: -27px;
+  right: -33px;
+  animation-name: mostrar_derecha_abajo;
+  animation-duration: 1s;
+}
+
+@keyframes mostrar_derecha_abajo{
+  0%{
+      transform: translateX(50%);
+  }
+  
+  100%{
+      transform: translateX(0%);
+  }
+}
+.formas__items--forma5{
+  top: 19%;
+  left: 61%;
+  animation: mover_forma5 20s infinite ;
+}
+
+@keyframes mover_forma5{
+  0%{
+      transform: translateX(0) translateY(0);
+  }
+  40%{
+      transform: translateX(100px) translateY(-200px);
+  }
+  75%{
+      transform: translateX(900px);
+  }
+  
+  100%{
+      transform: translateX(0) translateY(0);
+  }
+}
+.formas__items--forma6{
+  top: 50%;
+  left: 10%;
+  animation: mover_forma6 20s infinite ;
+}
+
+@keyframes mover_forma6{
+  0%{
+      transform: translateX(0) translateY(0);
+  }
+  40%{
+      transform: translateX(400px) translateY(700px);
+  }
+  75%{
+      transform: translateX(-500px) translateY(500px);
+  }
+  
+  100%{
+      transform: translateX(0) translateY(0);
+  }
+}
+.formas__items--forma7{
+  top: 50%;
+  left: 50%;
+  animation: mover_forma7 20s infinite ;
+}
+
+@keyframes mover_forma7{
+  0%{
+      transform: translateX(0) translateY(0);
+  }
+  40%{
+      transform: translateX(-500px) translateY(700px);
+  }
+  75%{
+      transform: translateX(-500px) translateY(500px);
+  }
+  
+  100%{
+      transform: translateX(0) translateY(0);
+  }
+}
+.formas__items--forma8{
+  top: 30%;
+  left: 20%;
+  animation: mover_forma8 12s infinite ;
+}
+
+@keyframes mover_forma8{
+  0%{
+      transform: translateX(0) translateY(0);
+  }
+  17%{
+      transform: translateX(1000px) translateY(300px);
+  }
+  34%{
+    transform: translateX(1200px) translateY(150px);
+  }
+  51%{
+      transform: translateX(1000px) translateY(50px);
+  }
+  68%{
+      transform: translateX(0px) translateY(300px);
+  }
+  84%{
+    transform: translateX(-100px) translateY(150px);
+  }
+  100%{
+      transform: translateX(0) translateY(0);
   }
 }
