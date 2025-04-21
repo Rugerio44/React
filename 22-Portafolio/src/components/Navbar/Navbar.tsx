@@ -1,4 +1,4 @@
-import React from 'react'
+import '/src/index.css';
 
 export const Navbar = () => {
   return (
@@ -8,10 +8,10 @@ export const Navbar = () => {
                     <div className="navigation">
                       <nav>
                         <ul className="nav-type">
-                          <li><a href="https://codepen.io/EneergeticTomy/" target="_blank" className="active">Home</a></li>
-                          <li><a href="https://codepen.io/TomikaBoy/full/LqMpaE" target="_blank" className="active1">Acerca de Mi</a></li>
-                          <li><a href="https://codepen.io/" target="_blank" className="active2">Proyectos</a></li>
-                          <li><a href="https://w3schools.com/" target="_blank" className="active3">Trayectoria</a></li>
+                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Home</a></li>
+                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Acerca de Mi</a></li>
+                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Proyectos</a></li>
+                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Trayectoria</a></li>
                         </ul>
                       </nav>
                     </div>
