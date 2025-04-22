@@ -4,6 +4,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 import { Navbar } from './components/Navbar/Navbar';
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
@@ -19,109 +20,39 @@ function App() {
           "skew-y-12",
           "pointer-events-none",
           "fill-gray-400/30",
-          "stroke-gray-400/30",
+          "stroke-gray-400/30"
         )}
       />
       <Navbar />
+      <Layout />
 
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold text-center">Gianni Francesco</h1>
-        <AuroraText className="mt-4 text-2xl text-gray-600">
-          Desarrollador web Front End
-        </AuroraText>
-        {/* Add social media icons here */}
-      </div>
-
-      {/* Formas e imágenes del banner */}
-      <div className="banner__formas">
-        <ul className="formas__lista">
-          <li className="formas__item formas__items--forma1">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-12.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma2">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-13.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma3">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-26.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma4">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-15.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma5">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-16.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma6">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-16.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma7">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-13.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-          <li className="formas__item formas__items--forma8">
-            <div className="formas__contenedor">
-              <img
-                src="/src/assets/img/bubble-13.png"
-                alt=""
-                className="formas__img"
-              />
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold text-center">
-          Welcome to the Aurora Text Component!
+      <header className="about__header">
+        <h1 className="about__title">
+          Acerca de <AuroraText>mi</AuroraText>
         </h1>
-        <p className="mt-4 text-lg text-gray-600">
-          This is a simple example of how to use the Aurora Text component.
-        </p>
-        <AuroraText className="text-4xl font-bold text-center">
-          This is a simple example of how to use the Aurora Text component.
-        </AuroraText>
-      </div>
+      </header>
+      <div className="about__infoperso">
+        <article className="infoperso__bio">
+          Ingeniero en Sistemas con una pasión por la vanguardia tecnológica y la
+          innovación. Mi curiosidad natural me impulsa a explorar y profundizar en
+          el conocimiento de las tecnologías emergentes, no solo en mi campo de
+          especialización, sino también en el ámbito tecnológico en general.
+          Comprometido con el crecimiento personal y profesional, dedico mi tiempo
+          libre a mantenerme activo físicamente, participando en juegos de fútbol
+          americano cada fin de semana. Recientemente, he comenzado a sumergirme
+          en el fascinante mundo del anime, lo que refleja mi apertura a nuevas
+          experiencias y culturas.
+        </article>
+        <div className="infoperso__data">
+          <ul className="infoperso__list">
+            <li className="infoperso__option">
+              <span className="infoperso__title">Nombre:</span>
+              <span className="infoperso__value">Gianni Francesco</span>
+            </li>
+          </ul>
+        </div>
 
+      </div>
     </>
   );
 }
