@@ -480,3 +480,139 @@ li a {
   border-radius: 7rem;
   border: 5px solid #a74fdd;
 }
+
+.about__header{
+  /* margin-top: 10rem; */
+  margin: 9rem 3rem;
+}
+.about__infoperso{
+  display: flex;
+  flex-direction: row;
+  margin: 10rem 0rem;
+  border: 5px solid #5a2890;
+  box-shadow: 10px 10px 27px #5a2890;
+}
+.infoperso__bio{
+  padding: 1rem;
+  width: 60%;
+  text-align: left;
+}
+.infoperso__data{
+  padding: 1rem;
+  width: 40%;
+  text-align: left;
+}
+.infoperso__option{
+  margin: 1rem;
+}
+.bio__info{
+  margin: 1rem;
+}
+.infoperso__title{
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+.marquee__titulo{
+  margin-bottom: 2.5rem;
+}
+.marquee__container{
+  display: flex;
+  overflow: hidden;
+}
+
+.marquee__list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15rem;
+}
+
+.marquee__item:first-child{
+  margin-left: 20rem;
+}
+
+.marquee__item {
+  border: 5px solid var(--color-subtitulo);
+  padding: 1rem;
+  border-radius: 9rem;
+  padding-left: 2.5rem;
+  background-color: var(--color-secundario);
+  box-shadow: -2px 17px 2rem 1rem rgba(0, 0, 0, 0.25);
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+  transition: all 500ms ease-in-out;
+}
+
+.marquee__item:hover{
+  transform: scale(1.2);
+}
+
+.marquee__texto {
+  position: absolute;
+  top: calc(57% - 2.2rem);
+  left: calc(42% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+.marquee__texto--1{
+  position: absolute;
+  top: calc(55% - 2.2rem);
+  left: calc(47% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+
+.marquee__texto--2 {
+  position: absolute;
+  top: calc(57% - 2.2rem);
+  left: calc(37% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+
+.marquee__texto--3 {
+  position: absolute;
+  top: calc(56% - 2.2rem);
+  left: calc(44% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+
+.marquee__texto--4 {
+  position: absolute;
+  top: calc(56% - 2.2rem);
+  left: calc(31% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+
+.marquee__texto--5 {
+  position: absolute;
+  top: calc(56% - 2.2rem);
+  left: calc(27% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
+
+.marquee__texto--6 {
+  position: absolute;
+  top: calc(56% - 2.2rem);
+  left: calc(28% - 2.2rem);
+  width: 4.4rem;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-principal);
+}
