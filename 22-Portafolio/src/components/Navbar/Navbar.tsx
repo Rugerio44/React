@@ -9,7 +9,7 @@ export const Navbar = () => {
                       <nav>
                         <ul className="nav-type">
                           <li className="nav__item"><a href="#" target="_blank" className="nav__title">Home</a></li>
-                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Acerca de Mi</a></li>
+                          <li className="nav__item"><a href="#" target="_blank" className="nav__title">Acerca de mi</a></li>
                           <li className="nav__item"><a href="#" target="_blank" className="nav__title">Proyectos</a></li>
                           <li className="nav__item"><a href="#" target="_blank" className="nav__title">Trayectoria</a></li>
                         </ul>
