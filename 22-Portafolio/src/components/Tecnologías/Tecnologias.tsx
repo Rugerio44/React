@@ -1,22 +1,31 @@
-import Marquee from "./Marquee"
+
+import { AuroraText } from "../magicui/aurora-text";
+import MarqueeComponent from "./MarqueeComponent";
+import TecnoInfo from "./TecnoInfo";
 
 
 const Tecnologias = () => {
+ 
+
+
   return (
     <>
       <section className="acerca__marquee">
-        <h1 className="marquee__titulo">Tecnologías</h1>
-
+        <h1><AuroraText>Tecnologías</AuroraText></h1>
         <div className="marquee__container">
-          
-          <Marquee/>
-
+          <MarqueeComponent />
+          <div className="marquee__item">
+            <div className="marquee__info">
+              <TecnoInfo />
+            </div>
+            <div className="marquee__info">
+              <TecnoInfo />
+            </div>
+          </div>
         </div>
       </section>
-
-
     </>
-  )
-}
+  );
+};
 
-export default Tecnologias
+export default Tecnologias;
