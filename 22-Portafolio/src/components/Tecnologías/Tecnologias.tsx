@@ -13,11 +13,10 @@ const Tecnologias = () => {
       <section className="acerca__marquee">
         <h1><AuroraText>Tecnologías</AuroraText></h1>
         <div className="marquee__container">
-          <MarqueeComponent />
           <div className="marquee__item">
-            <div className="marquee__info">
-              <TecnoInfo />
-            </div>
+            <MarqueeComponent />
+          </div>
+          <div className="marquee__item">
             <div className="marquee__info">
               <TecnoInfo />
             </div>
