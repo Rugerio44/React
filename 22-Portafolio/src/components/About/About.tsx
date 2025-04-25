@@ -5,7 +5,7 @@ const About = () => {
     <>
     <header className="about__header">
         <h1 className="about__title">
-          Acerca de <AuroraText>mi</AuroraText>
+          <AuroraText>Acerca de mi</AuroraText>
         </h1>
       </header>
       <div className="about__infoperso">
