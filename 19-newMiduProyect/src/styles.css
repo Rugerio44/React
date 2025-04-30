@@ -1,0 +1,22 @@
+/* ...existing code... */
+
+.articulo__botton--isfollowing {
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.articulo__botton--isfollowing.hover {
+  background-color: red; /* Cambia el color al hacer hover */
+  color: white; /* Asegúrate de que el texto sea visible */
+}
+
+.articulo__botton {
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}

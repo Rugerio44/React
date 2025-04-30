@@ -73,4 +73,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border: 4px solid #9aaedb61;
+  padding: 1rem;
+  border-radius: 2rem;
+}
+.App{
+  padding: 2rem;
+  border: 8px solid #4ab6e9;
 }
