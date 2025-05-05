@@ -1,3 +1,5 @@
+import Icono4 from "../Icons/Icono4";
+
 const Proyects = () => {
 
   interface Item {
@@ -11,6 +13,7 @@ const Proyects = () => {
   }
 
   const notifications: Item[] = [
+    // Pargina Web Web1
     {
       description: "Página web",
       img: "/src/assets/img/web.png",
@@ -20,6 +23,7 @@ const Proyects = () => {
       text2: "CSS",
       titulo: "Página web"
     },
+    // Blog de Videojuegos
     {
       description: "Blog de Videojuegos",
       img: "/src/assets/img/gamer.png",
@@ -29,6 +33,7 @@ const Proyects = () => {
       text2: "CSS",
       titulo: "Blog "
     },
+    //Pagina web Activa
     {
       description: "Pagina web",
       img: "/src/assets/img/Soylea.png",
@@ -37,7 +42,48 @@ const Proyects = () => {
       text: "Wordpress",
       text2: "",
       titulo: "Pagina web Activa"
-    }
+    },
+    //Componente Follow en Twitter
+    {
+      description: "Twitter-profile-card",
+      img: "/src/assets/img/twitter.png",
+      icon1: "",
+      icon2: <Icono4 />, 
+      text: "React",
+      text2: "",
+      titulo: "Componente Follow en Twitter  "
+    },
+    //Juego de Gato
+    {
+      description: "Juego de Gato",
+      img: "/src/assets/img/gato.png",
+      icon1: "",
+      icon2: <Icono4 />,
+      text: "React",
+      text2: "",
+      titulo: "Juego de Gato"
+    },
+    //Puntero Seguidor
+    {
+      description: "Puntero Seguidor",
+      img: "/src/assets/img/puntero.png",
+      icon1: "",
+      icon2: <Icono4 />,
+      text: "React",
+      text2: "",
+      titulo: "Puntero Seguidor"
+    },
+    //Form Con Formik
+    {
+      description: "Form Con Formik",
+      img: "/src/assets/img/form_Formik.png",
+      icon1: "",
+      icon2: <Icono4 />,
+      text: "React",
+      text2: "",
+      titulo: "Form Con Formik"
+    },
+    
 
   ];
 
