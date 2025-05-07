@@ -757,3 +757,15 @@ li a {
     flex-wrap: wrap;
     gap: 3rem;
 }
+.trayectoria__title{
+  border-bottom: 4px solid #804abb57;
+  /* margin-bottom: 1rem; */
+  padding-bottom: 4rem;
+}
+.certificados__container{
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+.certificados__title{
+  margin-bottom: 5rem;
+}
