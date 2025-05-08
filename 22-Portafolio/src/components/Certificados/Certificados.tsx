@@ -1,39 +1,7 @@
 import { AuroraText } from "../magicui/aurora-text";
-import { HoverEffect } from "../ui/card-hover-effect";
+import Certificado from "./Certificado";
 
 const Certificados = () => {
-    const projects = [
-        {
-          title: "Master en React: Aprender ReactJS, Hooks, MERN, NodeJS, JWT+",
-          description: "31/03/2025",
-          link: "",
-        },
-        {
-          title: "Master en CSS3 Avanzado",
-          description:"20-03-2024",
-          link: "",
-        },
-        {
-          title: "Curso de Visual Studio Code y GitHub Copilot",
-          description:"20/3/2025",
-          link: "",
-        },
-        {
-          title: "Introduction to Cybersecurity",
-          description:"18/07/2023",
-          link: "",
-        },
-        {
-          title: "CCNAv7: Switching, Routing, and Wireless Essentials",
-          description:"15/12/2022",
-          link: "",
-        },
-        {
-          title: "CCNAv7: Enterprise Networking, Security, and Automation",
-          description:"27/04/2023",
-          link: "",
-        },
-      ];  
   return (
     <>
       <div className="certificados__container">
@@ -41,13 +9,36 @@ const Certificados = () => {
           <AuroraText>Certificados</AuroraText>
         </h1>
         <div className="certificados__text">
-          <div className="max-w-5xl mx-auto px-8">
-            <HoverEffect items={projects} />
-          </div>
+          <Certificado
+            titulo="Master en React: Aprender ReactJS, Hooks, MERN, NodeJS, JWT+"
+            imagen="https://assets.toptal.io/images?url=https%3A%2F%2Fbs-uploads.toptal.io%2Fblackfish-uploads%2Fcomponents%2Fblog_post_page%2F5992673%2Fcover_image%2Fretina_500x200%2F1005_Design-Patterns-in-React_Cover-4ac39f45a8b10eff8e80b0b54aa11bdd.png"
+          />
+          <Certificado
+            titulo="Master en CSS3 Avanzado"
+            imagen="https://raw.githubusercontent.com/diegoAlex24/HTML-CSS-examples/master/html-css-logo.jpg"
+          />
+          <Certificado
+            titulo="Certificado de HTML y CSS"
+            imagen="/src/assets/img/Certificado_HTML_CSS.png"
+          />
+        </div>
+        <div className="certificados__text">
+          <Certificado
+            titulo="Master en React: Aprender ReactJS, Hooks, MERN, NodeJS, JWT+"
+            imagen="https://assets.toptal.io/images?url=https%3A%2F%2Fbs-uploads.toptal.io%2Fblackfish-uploads%2Fcomponents%2Fblog_post_page%2F5992673%2Fcover_image%2Fretina_500x200%2F1005_Design-Patterns-in-React_Cover-4ac39f45a8b10eff8e80b0b54aa11bdd.png"
+          />
+          <Certificado
+            titulo="Master en CSS3 Avanzado"
+            imagen="https://raw.githubusercontent.com/diegoAlex24/HTML-CSS-examples/master/html-css-logo.jpg"
+          />
+          <Certificado
+            titulo="Certificado de HTML y CSS"
+            imagen="/src/assets/img/Certificado_HTML_CSS.png"
+          />
         </div>
       </div>
     </>
   );
-}
+};
 
-export default Certificados
+export default Certificados;
