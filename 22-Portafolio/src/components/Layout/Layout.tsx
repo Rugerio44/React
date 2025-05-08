@@ -9,7 +9,7 @@ const Layout = () => {
         {/* Imagen  */}
         <div className="container__img">
             <img
-                src="/src/assets/img/Avatar.png"
+                src="/src/assets/img/ChatGPT Image 8 may 2025, 03_11_31 p.m..webp"
                 alt=""
                 className="img__avatar"
             />
@@ -20,22 +20,22 @@ const Layout = () => {
         <div className="social-icons-container">
             <ul className="social-icons-list">
                 <li className="social-icon-item">
-                    <a href="#" className="social-icon-link">
+                    <a href="https://github.com/Rugerio44" className="social-icon-link">
                         <i className="fab fa-github social-icon"></i>
                     </a>
                     </li>
                     <li className="social-icon-item">
-                    <a href="#" className="social-icon-link">
+                    <a href="https://wa.me/525547078973" className="social-icon-link">
                         <i className="fab fa-whatsapp social-icon"></i>
                     </a>
                     </li>
                     <li className="social-icon-item">
-                    <a href="#" className="social-icon-link">
+                    <a href="https://www.linkedin.com/in/gianni-rugerio-lezama/" className="social-icon-link">
                         <i className="fab fa-linkedin-in social-icon"></i>
                     </a>
                     </li>
                     <li className="social-icon-item">
-                    <a href="#" className="social-icon-link">
+                    <a href="mailto:gianni.rugerio@hotmail.com" className="social-icon-link">
                         <i className="fab fa-google-plus-g social-icon"></i>
                     </a>
                 </li>

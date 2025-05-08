@@ -11,7 +11,7 @@ const Tecnologias = () => {
   return (
     <>
       <section className="acerca__marquee">
-        <h1><AuroraText>Tecnologías</AuroraText></h1>
+        <h1 className="acerca__title"><AuroraText>Tecnologías</AuroraText></h1>
         <div className="marquee__container">
           <div className="marquee__item">
             <MarqueeComponent />
