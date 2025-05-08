@@ -478,8 +478,13 @@ li a {
 }
 .img__avatar {
   height: 14rem;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 100%);
+  mask-size: 100% 100%;
+  mask-position: center;
+  mask-repeat: no-repeat;
   border-radius: 7rem;
   border: 5px solid #a74fdd;
+  background-color: #1e1d42;
 }
 
 .about__header{
@@ -790,4 +795,51 @@ li a {
   justify-content: center;
   gap: 5rem;
   margin: 5rem 0rem;
+}
+.certificados__text2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5rem;
+  margin: 5rem 0rem;
+}
+.certificado__certificados{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5rem;
+
+}
+.certificado__texto{
+  font-size: 4rem;
+  padding: 3rem;
+}
+.acerca__title,
+.proyect__titulo,
+.trayectoria__title,
+.certificados__title
+{
+  padding: 5rem;
+}
+/* Estilos base */
+.infoperso__button {
+  padding: 0.5rem 0.5rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  background: linear-gradient(to right, #921C89, #712BC8, #185ACD);
+  transition: all 0.5s ease-out;
+  width: 50%;
+  border: 1px solid #5a2890;
+}
+/* Estilos al pasar el ratón */
+.infoperso__button:hover {
+  transform: scale(1.05); /* Equivalente a hover:scale-105 */
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.25)); /* Equivalente a hover:drop-shadow-2xl (aproximado) */
+  box-shadow: 0 25px 50px -12px rgba(90, 40, 144, 0.25); /* Equivalente a hover:shadow-[#5A2890] (aproximado) */
+}
+.infoperso__ewqewreqw{
+    font-size: 1.2rem;
 }
