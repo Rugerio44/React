@@ -25,7 +25,7 @@ const Certificado = ({ titulo, imagen, pdf , nombrepdf}: CertificadoProps) => {
         >
           <div className="absolute w-full h-full top-0 left-0 transition duration-700 group-hover/card:bg-black opacity-60"></div>
           <div className="text content">
-            <h2 className="font-bold text-2xl text-gray-50 relative z-10 pt-15 text-shadow-lg/50 transition-transform duration-700 group-hover/card:scale-110">
+            <h2 className="certificado__titulo font-bold text-2xl text-gray-50 relative z-10 pt-15 text-shadow-lg/50 transition-transform duration-700 group-hover/card:scale-110">
               {titulo}
             </h2>
             <div className="certificado__caja cursor-pointer">
