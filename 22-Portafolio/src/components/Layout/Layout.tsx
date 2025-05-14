@@ -14,7 +14,7 @@ const Layout = () => {
                 className="img__avatar"
             />
         </div>
-        <h1 className="text-4xl font-bold text-center">Gianni Francesco</h1>
+        <h1 className="text-4xl font-bold text-center main__titulo">Gianni Francesco</h1>
         <AuroraText className='main__title'>Desarrollador web Front End</AuroraText>
         {/*Redes sociales*/}
         <div className="social-icons-container">
