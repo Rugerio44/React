@@ -10,7 +10,7 @@ const Trayectoria = () => {
         titulo: "Trabajos",
         content: (
           <div>
-            <h2 className="mb-4 text-5xl pb-20 font-bold text-white ">
+            <h2 className="mb-4 text-5xl pb-20 font-bold text-white trayectoria__subtitle">
               Desarrollo y Mantenimiento Web 🧑‍💻
             </h2>
             <p className="text-left text-sm p-6 font-normal text-white mb-10 ">
@@ -28,7 +28,7 @@ const Trayectoria = () => {
         titulo: "",
         content: (
           <div>
-            <h2 className="mb-4 text-5xl pb-20 font-bold text-white">
+            <h2 className="mb-4 text-5xl pb-20 font-bold text-white trayectoria__subtitle">
               Soporte Técnico y Atención a cliente 💳
             </h2>
             <p className="text-left text-sm font-normal text-white p-10 mb-10 ">
@@ -46,7 +46,7 @@ const Trayectoria = () => {
             titulo: "Estudios",
             content: (
               <div>
-                <h2 className="mb-4 text-5xl pb-20 font-bold text-white">
+                <h2 className="mb-4 text-5xl pb-20 font-bold text-white trayectoria__subtitle">
                         Ingeniería en Sistemas Computacionales
                 </h2>
               </div>
@@ -58,7 +58,7 @@ const Trayectoria = () => {
             titulo: "",
             content: (
               <div>
-                <h2 className=" text-5xl pb-10 font-bold text-white">
+                <h2 className=" text-5xl pb-10 font-bold text-white trayectoria__subtitle">
                     MBA (Master in Business Administration)
                 </h2>
               </div>
