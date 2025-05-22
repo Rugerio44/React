@@ -170,9 +170,9 @@
     .home,
     .tecnologias,
     .proyectos,
-    .trayectoria,
-    .acerca{
-        width: 55%;
+    .trayectoria
+    {
+        width: 75%;
     }
     .img__avatar {
         height: 15rem;
@@ -190,14 +190,14 @@
         margin-bottom: 1rem;
     } 
     .social-icon-link {
-    width: 30px;
-    height: 30px;
+        width: 30px;
+        height: 30px;
     }
     .social-icon {
-    position: absolute;
-    font-size: 1rem;
-    top: 4px;
-    left: 3px;
+        position: absolute;
+        font-size: 1rem;
+        top: 4px;
+        left: 3px;
     }
     .formas__items--forma1 {
         top: -4px;
@@ -231,16 +231,116 @@
         margin: 0rem 0rem;
         padding-left: 1.5rem;
     }
+    .certificado__certificados {
+        flex-direction: column;
+        padding-left: 1.5rem;
+    }
+    
     .certificado__texto {
         font-size: 4rem;
         padding: 0rem;
+        width: 66%;
     }
     .certificados{
         width: 80%;
     }
-    .trayectoria__subtitle{
-        font-size: 2.5rem;
+    .trayectoria__subtitle {
+        font-size: 2rem;
         width: 100%;
         text-align: left;
+    }
+    .trayectoria__text {
+        padding: 0;
+        width: 85%;
+    }
+    .certificados__title{
+        width: 55%;
+    }
+    .acerca{
+        width: 74%;
+    }
+    .about__header {
+        margin: 0rem 0px 0rem;
+    }
+    .about__infoperso {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem 0rem;
+    }
+    .infoperso__bio {
+    width: 100%;
+    }
+    .infoperso__data {
+    width: 100%;
+    }
+    .infoperso__button {
+        width: 69%;
+    }
+}
+@media (max-width:393px){
+    #root {
+    padding: 1rem;
+    }
+    .home,
+    .tecnologias,
+    .proyectos,
+    .trayectoria,
+    .certificados,
+    .acerca{
+        width: 72%;
+    }
+    .infoperso__button {
+        width: 71%;
+    }
+}
+@media (max-width:372px){
+    #root {
+    padding: 1rem;
+    }
+    .home,
+    .tecnologias,
+    .proyectos,
+    .trayectoria,
+    .certificados,
+    .acerca{
+        width: 70%;
+    }
+    .infoperso__button {
+        width: 71%;
+    }
+    .acerca__title, .proyect__titulo, .trayectoria__title, .certificados__title {
+        padding: 0rem;
+        font-size: 4rem;
+        margin-bottom: 5rem;
+    }
+    .about__title {
+        font-size: 4rem;
+        margin-bottom: 5rem;
+    }
+    .infoperso__button {
+        width: 75%;
+    }
+    .certificados__text,
+    .certificado__certificados{
+        padding-left: 0.5rem;
+    }
+    .certificado__texto {
+        width: 97%;
+    }
+}
+@media (max-width:356px){
+    #root {
+    padding: 1rem;
+    }
+    .home,
+    .tecnologias,
+    .proyectos,
+    .trayectoria,
+    .certificados,
+    .acerca{
+        width: 66%;
+    }
+    .infoperso__button {
+        width: 71%;
     }
 }
