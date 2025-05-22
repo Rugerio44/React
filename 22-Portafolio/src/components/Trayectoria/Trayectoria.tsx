@@ -13,7 +13,7 @@ const Trayectoria = () => {
             <h2 className="mb-4 text-5xl pb-20 font-bold text-white trayectoria__subtitle">
               Desarrollo y Mantenimiento Web 🧑‍💻
             </h2>
-            <p className="text-left text-sm p-6 font-normal text-white mb-10 ">
+            <p className="text-left text-sm p-6 font-normal text-white mb-10 trayectoria__text">
               Diseñé y mantuve su página web a través de WordPress, además
               implementé la aplicación ieduca para optimizar la comunicación y
               gestión de datos escolares, facilitando el acceso a información
@@ -31,7 +31,7 @@ const Trayectoria = () => {
             <h2 className="mb-4 text-5xl pb-20 font-bold text-white trayectoria__subtitle">
               Soporte Técnico y Atención a cliente 💳
             </h2>
-            <p className="text-left text-sm font-normal text-white p-10 mb-10 ">
+            <p className="text-left text-sm font-normal text-white p-10 mb-10 trayectoria__text">
               Soporte a computadoras a nivel básico y atencion a clientes.
             </p>
           </div>
