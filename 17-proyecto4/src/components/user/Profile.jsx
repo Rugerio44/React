@@ -15,7 +15,7 @@ export const Profile = () => {
     const [publications, setPublications] = useState([]);
     const [page, setPage] = useState(1);
     const [more, setMore] = useState(true);
-
+ 
     useEffect(() => {
 
       // Cargar el perfil del usuario basado en el userId
@@ -40,7 +40,7 @@ export const Profile = () => {
     
     const checkFollowStatus = async () => {
         try {
-            const request = await fetch(`http://localhost:3900/api/follow/following/${auth._id}`, {
+            const request = await fetch(`${Global.url}follow/following/${auth._id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const Profile = () => {
     };
 
     const handleFollow = async () => {
-        const request = await fetch(`http://localhost:3900/api/follow/save`, {
+        const request = await fetch(`${Global.url}follow/save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export const Profile = () => {
     };
 
     const handleUnfollow = async () => {
-        const request = await fetch(`http://localhost:3900/api/follow/unfollow/${userId}`, {
+        const request = await fetch(`${Global.url}follow/unfollow/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
